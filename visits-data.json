@@ -433,5 +433,1037 @@
     "city": "Beijing",
     "timezone": "Europe/Bratislava",
     "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:43.079Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/server-info",
+    "referrer": null,
+    "language": "en-US",
+    "country": "Australia",
+    "city": "Mumbai",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:43.170Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/favicon.ico",
+    "referrer": "http://localhost:3000/server-info",
+    "language": "en-US",
+    "country": "China",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:44.709Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/",
+    "referrer": "http://localhost:3000/server-info",
+    "language": "en-US",
+    "country": "France",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:44.800Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/styles.css",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "Toronto",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:44.808Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "India",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:44.827Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/script.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "New York",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:44.833Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/cloaking.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "India",
+    "city": "Berlin",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:45.129Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Germany",
+    "city": "São Paulo",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:45.199Z",
+    "sessionId": "session_1749773685199_gfd1fb8to",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773684696,
+      "domContentLoaded": -1749773684696,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/server-info",
+      "currentUrl": "http://localhost:3000/",
+      "pathname": "/",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "PandaBuy - Shop from China",
+      "url": "http://localhost:3000/",
+      "pathname": "/",
+      "loadTime": 1749773685254
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:14:47.005Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
+  },
+  {
+    "timestamp": "2025-06-13T00:14:55.111Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/ship-out.html",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "United Kingdom",
+    "city": "Mumbai",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:55.164Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "São Paulo",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:55.169Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "Berlin",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:14:55.199Z",
+    "sessionId": "session_1749773695199_zgbjsgdc5",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773695096,
+      "domContentLoaded": -1749773695096,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/",
+      "currentUrl": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "Parcel Status - PandaBuy",
+      "url": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "loadTime": 1749773695240
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:14:55.343Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/ship-out.html"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
+  },
+  {
+    "timestamp": "2025-06-13T00:15:13.284Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/ship-out.html",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Brazil",
+    "city": "Toronto",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:13.321Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "Beijing",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:13.326Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "United States",
+    "city": "Tokyo",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:13.339Z",
+    "sessionId": "session_1749773713339_vljdyvv07",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773713277,
+      "domContentLoaded": -1749773713277,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/",
+      "currentUrl": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "Parcel Status - PandaBuy",
+      "url": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "loadTime": 1749773713375
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:15:13.471Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/ship-out.html"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
+  },
+  {
+    "timestamp": "2025-06-13T00:15:15.002Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/ship-out.html",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Australia",
+    "city": "Sydney",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:15.043Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Brazil",
+    "city": "Berlin",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:15.046Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Germany",
+    "city": "London",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:15.058Z",
+    "sessionId": "session_1749773715058_9usbzeelj",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773714992,
+      "domContentLoaded": -1749773714992,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/",
+      "currentUrl": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "Parcel Status - PandaBuy",
+      "url": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "loadTime": 1749773715110
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:15:15.232Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/ship-out.html"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.428Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/",
+    "referrer": "http://localhost:3000/server-info",
+    "language": "en-US",
+    "country": "India",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.466Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/styles.css",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Japan",
+    "city": "Sydney",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.468Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/cloaking.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Canada",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.474Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/script.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Canada",
+    "city": "New York",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.477Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Germany",
+    "city": "Beijing",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.498Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "Canada",
+    "city": "London",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:17.517Z",
+    "sessionId": "session_1749773717517_68v7j280c",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773717425,
+      "domContentLoaded": -1749773717425,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/server-info",
+      "currentUrl": "http://localhost:3000/",
+      "pathname": "/",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "PandaBuy - Shop from China",
+      "url": "http://localhost:3000/",
+      "pathname": "/",
+      "loadTime": 1749773717550
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:15:17.666Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
+  },
+  {
+    "timestamp": "2025-06-13T00:15:24.848Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/ship-out.html",
+    "referrer": "http://localhost:3000/",
+    "language": "en-US",
+    "country": "France",
+    "city": "Toronto",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:24.884Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/visitor-tracker.js",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "Canada",
+    "city": "Berlin",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:24.891Z",
+    "ip": "::ffff:127.0.0.1",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+    "browser": "Firefox",
+    "os": "Linux",
+    "deviceType": "Desktop",
+    "page": "/images/logo.png",
+    "referrer": "http://localhost:3000/ship-out.html",
+    "language": "en-US",
+    "country": "United Kingdom",
+    "city": "Paris",
+    "timezone": "Europe/Bratislava",
+    "screenResolution": "Unknown"
+  },
+  {
+    "timestamp": "2025-06-13T00:15:24.905Z",
+    "sessionId": "session_1749773724905_accj1yo4i",
+    "browser": {
+      "name": "Firefox",
+      "version": "139.0",
+      "fullUA": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+    },
+    "os": {
+      "name": "Linux",
+      "version": "Unknown",
+      "architecture": "Linux x86_64"
+    },
+    "device": {
+      "type": "Desktop",
+      "model": "Unknown",
+      "touchSupport": false,
+      "maxTouchPoints": 0
+    },
+    "screen": {
+      "resolution": "1920x1080",
+      "availableResolution": "1920x1080",
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "orientation": "landscape-primary",
+      "devicePixelRatio": 1
+    },
+    "network": {
+      "effectiveType": "Unknown",
+      "downlink": "Unknown",
+      "rtt": "Unknown",
+      "saveData": false
+    },
+    "locale": {
+      "timezone": "Europe/Bratislava",
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "locale": "en-US",
+      "currency": "Unknown"
+    },
+    "performance": {
+      "loadTime": -1749773724839,
+      "domContentLoaded": -1749773724839,
+      "memoryUsed": "Unknown",
+      "memoryTotal": "Unknown",
+      "memoryLimit": "Unknown"
+    },
+    "privacy": {
+      "adBlocker": false,
+      "doNotTrack": false,
+      "cookiesEnabled": true,
+      "javaEnabled": false,
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "webGL": true,
+      "webGLVendor": "Mozilla",
+      "webGLRenderer": "llvmpipe, or similar"
+    },
+    "traffic": {
+      "referrer": "http://localhost:3000/",
+      "currentUrl": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "search": "",
+      "hash": "",
+      "utmParams": null,
+      "isDirectTraffic": false,
+      "isSearchEngine": false
+    },
+    "page": {
+      "title": "Parcel Status - PandaBuy",
+      "url": "http://localhost:3000/ship-out.html",
+      "pathname": "/ship-out.html",
+      "loadTime": 1749773724946
+    },
+    "location": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    },
+    "server": {
+      "serverTimestamp": "2025-06-13T00:15:25.042Z",
+      "serverIP": "::ffff:127.0.0.1",
+      "serverUserAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0",
+      "serverHeaders": {
+        "acceptLanguage": "en-US,en;q=0.5",
+        "acceptEncoding": "gzip, deflate, br, zstd",
+        "connection": "keep-alive",
+        "host": "localhost:3000",
+        "referer": "http://localhost:3000/ship-out.html"
+      }
+    },
+    "geoLocation": {
+      "latitude": 52.5200066,
+      "longitude": 13.404954,
+      "accuracy": 397196.76387856004,
+      "permission": "granted"
+    }
   }
 ]

