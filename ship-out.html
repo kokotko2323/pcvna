@@ -11,390 +11,581 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Override specific styles for success page */
-        .hero-subtitle {
-            color: #28a745 !important;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        .status-dot {
-            background: #28a745 !important;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
         }
         
-        .toast-notification {
-            background: #d4edda !important;
-            border-color: #c3e6cb !important;
+        /* Header - Minimal */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .toast-icon {
-            color: #155724 !important;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
-        .toast-content h4, .toast-content p {
-            color: #155724 !important;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-section img {
+            height: 35px;
+        }
+        
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .status-badge {
+            background: #d4edda;
+            color: #155724;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.2);
+        }
+        
+        .status-badge i {
+            color: #28a745;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Success Header */
+        .success-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 50px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: successPulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+        }
+        
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(40, 167, 69, 0.4); }
+        }
+        
+        .success-icon i {
+            color: white;
+            font-size: 50px;
+        }
+        
+        .success-header h1 {
+            font-size: 36px;
+            color: #28a745;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .success-header p {
+            font-size: 18px;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-card:nth-child(1) .stat-icon { background: linear-gradient(135deg, #28a745, #20c997); }
+        .stat-card:nth-child(2) .stat-icon { background: linear-gradient(135deg, #17a2b8, #138496); }
+        .stat-card:nth-child(3) .stat-icon { background: linear-gradient(135deg, #ffc107, #e0a800); }
+        .stat-card:nth-child(4) .stat-icon { background: linear-gradient(135deg, #6f42c1, #5a32a3); }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .stat-desc {
+            font-size: 12px;
+            color: #adb5bd;
+            margin-top: 5px;
+        }
+        
+        /* Tracking Section */
+        .tracking-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .tracking-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .tracking-id-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tracking-id-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderRotate 3s linear infinite;
+        }
+        
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .tracking-id-label {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .tracking-id {
+            font-family: 'Courier New', monospace;
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Timeline */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .timeline-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #28a745, #20c997, #17a2b8, #667eea);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #28a745;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
+        }
+        
+        .timeline-item.active::before {
+            background: #28a745;
+            animation: timelinePulse 2s infinite;
+        }
+        
+        .timeline-item.pending::before {
+            background: #ffc107;
+        }
+        
+        .timeline-item.future::before {
+            background: #dee2e6;
+        }
+        
+        @keyframes timelinePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .timeline-content h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .timeline-content p {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid #667eea;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 50px;
+        }
+        
+        .footer p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 0 15px;
+                margin: 20px auto;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .tracking-id {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+            
+            .success-header h1 {
+                font-size: 28px;
+            }
+            
+            .timeline {
+                padding-left: 20px;
+            }
+            
+            .timeline-item {
+                padding-left: 30px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="nav-brand">
+        <div class="header-content">
+            <div class="logo-section">
                 <img src="https://i.imgur.com/YourLogo.png" alt="PandaBuy" onerror="this.style.display='none'">
-                <span>PandaBuy</span>
+                <span class="logo-text">PandaBuy</span>
             </div>
-            <nav class="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-            <div class="nav-actions">
-                <div class="status-dot"></div>
-                <span class="status-text">Payment Successful</span>
+            <div class="status-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Payment Successful</span>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Payment Confirmed</span>
-                </div>
-                <h1 class="hero-title">Order Successfully Placed!</h1>
-                <p class="hero-subtitle">Your payment has been processed and your order is now being prepared for shipment. We'll keep you updated every step of the way.</p>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">$127.50</div>
-                        <div class="stat-label">Amount Paid</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">3-7 Days</div>
-                        <div class="stat-label">Delivery Time</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">PB-2024-<span id="trackingNum">001337</span></div>
-                        <div class="stat-label">Tracking ID</div>
-                    </div>
-                </div>
-                
-                <div class="hero-actions">
-                    <a href="#" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                        Track Your Order
-                    </a>
-                    <a href="index.html" class="btn btn-secondary">
-                        <i class="fas fa-shopping-cart"></i>
-                        Continue Shopping
-                    </a>
-                </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Success Header -->
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
             </div>
-            <div class="hero-image">
-                <div class="success-animation">
-                    <div class="success-circle">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="success-particles"></div>
-                </div>
-            </div>
+            <h1>Payment Successful!</h1>
+            <p>Your order has been processed successfully. We'll start preparing your shipment right away and keep you updated throughout the process.</p>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Happens Next?</h2>
-                <p>Your order journey from confirmation to delivery</p>
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="stat-value">$127.50</div>
+                <div class="stat-label">Amount Paid</div>
+                <div class="stat-desc">Including fees</div>
             </div>
-            <div class="services-grid">
-                <div class="service-card active">
-                    <div class="service-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h3>Payment Confirmed</h3>
-                    <p>Your payment has been successfully processed and verified. Order is now active in our system.</p>
-                    <div class="service-status">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Completed</span>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shipping-fast"></i>
                 </div>
-                <div class="service-card processing">
-                    <div class="service-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Order Processing</h3>
-                    <p>We're carefully preparing your items and getting them ready for secure packaging and shipment.</p>
-                    <div class="service-status">
-                        <i class="fas fa-clock"></i>
-                        <span>In Progress</span>
-                    </div>
+                <div class="stat-value">3-7 Days</div>
+                <div class="stat-label">Delivery Time</div>
+                <div class="stat-desc">Express shipping</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
-                    <h3>Fast Shipping</h3>
-                    <p>Express delivery with real-time tracking. Your package will be dispatched within 24 hours.</p>
-                    <div class="service-status">
-                        <i class="fas fa-hourglass-half"></i>
-                        <span>Pending</span>
-                    </div>
+                <div class="stat-value">Protected</div>
+                <div class="stat-label">Purchase</div>
+                <div class="stat-desc">Buyer protection</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-headset"></i>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Secure Delivery</h3>
-                    <p>Protected delivery with signature confirmation and full insurance coverage for your peace of mind.</p>
-                    <div class="service-status">
-                        <i class="fas fa-hourglass-half"></i>
-                        <span>Pending</span>
-                    </div>
-                </div>
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Support</div>
+                <div class="stat-desc">Always available</div>
             </div>
         </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Our Customers Say</h2>
-                <p>Join thousands of satisfied customers worldwide</p>
+        <!-- Tracking Section -->
+        <div class="tracking-section">
+            <h2>Your Tracking Information</h2>
+            <p>Save this tracking ID to monitor your shipment status</p>
+            
+            <div class="tracking-id-container">
+                <div class="tracking-id-label">Tracking ID</div>
+                <div class="tracking-id" id="trackingId">PB-2024-001337</div>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Amazing service! My order arrived exactly as described and the tracking was perfect. Will definitely order again!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/60?img=1" alt="Customer">
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <span>Verified Customer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Fast shipping and excellent customer support. The payment process was smooth and secure. Highly recommended!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/60?img=2" alt="Customer">
-                        <div>
-                            <h4>Mike Chen</h4>
-                            <span>Verified Customer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Professional service from start to finish. Great communication and my package arrived in perfect condition."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/60?img=3" alt="Customer">
-                        <div>
-                            <h4>Emma Davis</h4>
-                            <span>Verified Customer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            <p style="color: #6c757d; font-size: 14px; margin-top: 20px;">
+                <i class="fas fa-info-circle"></i>
+                Tracking will be active within 24 hours. You'll receive email updates at each stage.
+            </p>
         </div>
-    </section>
 
-    <!-- Toast Notification -->
-    <div class="toast-notification" id="toast">
-        <div class="toast-icon">
-            <i class="fas fa-check-circle"></i>
+        <!-- Timeline -->
+        <div class="timeline-section">
+            <h2>Order Progress</h2>
+            <div class="timeline">
+                <div class="timeline-item active">
+                    <div class="timeline-content">
+                        <h3>Payment Confirmed</h3>
+                        <p>Your payment has been successfully processed and confirmed.</p>
+                    </div>
+                </div>
+                <div class="timeline-item pending">
+                    <div class="timeline-content">
+                        <h3>Processing Order</h3>
+                        <p>We're preparing your items and getting them ready for shipment.</p>
+                    </div>
+                </div>
+                <div class="timeline-item future">
+                    <div class="timeline-content">
+                        <h3>Shipped</h3>
+                        <p>Your order will be dispatched and tracking information will be provided.</p>
+                    </div>
+                </div>
+                <div class="timeline-item future">
+                    <div class="timeline-content">
+                        <h3>Delivered</h3>
+                        <p>Your package will arrive at your specified delivery address.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="toast-content">
-            <h4>Order Confirmed!</h4>
-            <p>You'll receive email updates about your shipment</p>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="#" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+                Track Package
+            </a>
+            <a href="index.html" class="btn btn-outline">
+                <i class="fas fa-shopping-cart"></i>
+                Continue Shopping
+            </a>
         </div>
-        <button class="toast-close" onclick="closeToast()">
-            <i class="fas fa-times"></i>
-        </button>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-brand">
-                        <img src="https://i.imgur.com/YourLogo.png" alt="PandaBuy" onerror="this.style.display='none'">
-                        <span>PandaBuy</span>
-                    </div>
-                    <p>Your trusted partner for secure online shopping and fast worldwide delivery.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Shipping Info</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-envelope"></i> support@pandabuy.com</p>
-                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Business St, City, State 12345</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 PandaBuy. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
-            </div>
-        </div>
+        <p>&copy; 2024 PandaBuy. All rights reserved. | Secure payments powered by advanced encryption.</p>
     </footer>
 
     <script>
-        // Generate random tracking number
-        function generateTrackingNumber() {
-            return Math.floor(Math.random() * 999999).toString().padStart(6, '0');
+        // Generate random tracking ID
+        function generateTrackingId() {
+            const prefix = 'PB-2024-';
+            const randomNum = Math.floor(Math.random() * 999999).toString().padStart(6, '0');
+            return prefix + randomNum;
         }
 
-        // Show toast notification
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 5000);
-        }
-
-        // Close toast notification
-        function closeToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.remove('show');
-        }
-
-        // Initialize page
+        // Set tracking ID on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Set random tracking number
-            document.getElementById('trackingNum').textContent = generateTrackingNumber();
-            
-            // Show success toast
-            setTimeout(showToast, 1000);
-            
-            // Add success animation
-            const successCircle = document.querySelector('.success-circle');
-            if (successCircle) {
-                successCircle.style.animation = 'successPulse 2s infinite';
-            }
+            document.getElementById('trackingId').textContent = generateTrackingId();
         });
-
-        // Add success pulse animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes successPulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
-            
-            .success-animation {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .success-circle {
-                width: 120px;
-                height: 120px;
-                background: linear-gradient(135deg, #28a745, #20c997);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
-            }
-            
-            .success-circle i {
-                color: white;
-                font-size: 50px;
-            }
-            
-            .service-card.active {
-                border-color: #28a745;
-                background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(32, 201, 151, 0.05));
-            }
-            
-            .service-card.processing {
-                border-color: #ffc107;
-                background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(224, 168, 0, 0.05));
-            }
-            
-            .service-status {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                margin-top: 15px;
-                font-size: 14px;
-                font-weight: 500;
-            }
-            
-            .service-card.active .service-status {
-                color: #28a745;
-            }
-            
-            .service-card.processing .service-status {
-                color: #ffc107;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 
 </body>
