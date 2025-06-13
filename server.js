@@ -228,42 +228,7 @@ app.post('/api/fingerprint', (req, res) => {
   }
 });
 
-app.post('/api/tracking-update', (req, res) => {
-  try {
-    const updateData = {
-      ...req.body,
-      serverTimestamp: new Date().toISOString()
-    };
-
-    // Update visitor activity
-    if (activeVisitors.has(updateData.sessionId)) {
-      const visitor = activeVisitors.get(updateData.sessionId);
-      visitor.lastActivity = Date.now();
-      activeVisitors.set(updateData.sessionId, visitor);
-    }
-
-    // Add to recent activity
-    recentActivity.unshift(updateData);
-    if (recentActivity.length > 100) {
-      recentActivity.pop();
-    }
-
-    console.log(`⚡ Activity: ${updateData.type} from ${updateData.sessionId.slice(0, 8)}`);
-
-    // Send interesting activities to Telegram
-    if (telegramBot && shouldNotifyActivity(updateData)) {
-      sendActivityNotificationToTelegram(updateData);
-    }
-
-    // Emit to real-time dashboard
-    io.emit('visitor_activity', updateData);
-
-    res.json({ success: true, message: 'Activity tracked' });
-  } catch (error) {
-    console.error('Error tracking activity:', error);
-    res.status(500).json({ error: 'Failed to track activity' });
-  }
-});
+// Removed tracking endpoint - no longer needed
 
 // Test Telegram bot endpoint
 app.get('/test-telegram', async (req, res) => {
@@ -298,78 +263,7 @@ app.get('/server-info', (req, res) => {
   res.sendFile(path.join(__dirname, 'server-info.html'));
 });
 
-// Telegram notification functions
-function sendVisitorNotificationToTelegram(fingerprintData) {
-  const fp = fingerprintData.fingerprint || {};
-  const basic = fp.basic || {};
-  const network = fp.network || {};
-  const hardware = fp.hardware || {};
-  
-  const message = `🕵️ NEW VISITOR DETECTED!
-
-👤 SESSION: ${fingerprintData.sessionId.slice(0, 12)}...
-🌐 IP: ${network.ip || 'Unknown'}
-📍 Location: ${network.location?.city || 'Unknown'}, ${network.location?.country || 'Unknown'}
-🏢 ISP: ${network.location?.isp || 'Unknown'}
-
-💻 DEVICE INFO:
-Browser: ${getBrowserFromUA(basic.userAgent)}
-OS: ${basic.platform || 'Unknown'}
-Screen: ${hardware.screen?.width}x${hardware.screen?.height}
-Memory: ${hardware.deviceMemory || 'Unknown'}GB
-
-🔗 URL: ${basic.url || 'Unknown'}
-🔄 Referrer: ${basic.referrer || 'Direct'}
-🕐 Time: ${new Date().toLocaleString()}
-
-🎯 Live Dashboard: https://pandabuycn.com/spy-dashboard`;
-
-  telegramBot.sendCustomMessage(message).catch(console.error);
-}
-
-function sendActivityNotificationToTelegram(activityData) {
-  const visitor = activeVisitors.get(activityData.sessionId);
-  const visitorInfo = visitor ? `${visitor.fingerprint?.network?.ip || 'Unknown'} (${visitor.fingerprint?.network?.location?.country || 'Unknown'})` : 'Unknown';
-  
-  let message = '';
-  
-  switch (activityData.type) {
-    case 'click':
-      message = `🖱️ CLICK DETECTED!
-👤 Visitor: ${visitorInfo}
-🎯 Target: ${activityData.data.target}
-📍 Position: (${activityData.data.x}, ${activityData.data.y})
-🕐 Time: ${new Date().toLocaleString()}`;
-      break;
-      
-    case 'gps':
-      message = `📍 GPS LOCATION OBTAINED!
-👤 Visitor: ${visitorInfo}
-🌍 Coordinates: ${activityData.data.latitude?.toFixed(6)}, ${activityData.data.longitude?.toFixed(6)}
-🎯 Accuracy: ${activityData.data.accuracy}m
-🕐 Time: ${new Date().toLocaleString()}`;
-      break;
-      
-    case 'visibility':
-      if (activityData.data.state === 'hidden') {
-        message = `👁️ VISITOR LEFT PAGE!
-👤 Visitor: ${visitorInfo}
-📄 Page became hidden/minimized
-🕐 Time: ${new Date().toLocaleString()}`;
-      }
-      break;
-  }
-  
-  if (message) {
-    telegramBot.sendCustomMessage(message).catch(console.error);
-  }
-}
-
-function shouldNotifyActivity(activityData) {
-  // Only notify for important activities
-  return ['click', 'gps', 'visibility'].includes(activityData.type) && 
-         (activityData.type !== 'visibility' || activityData.data.state === 'hidden');
-}
+// Removed tracking functions - no longer needed
 
 function getBrowserFromUA(userAgent) {
   if (!userAgent) return 'Unknown';
@@ -380,35 +274,9 @@ function getBrowserFromUA(userAgent) {
   return 'Other';
 }
 
-// Socket.IO connection handling
-io.on('connection', (socket) => {
-  console.log('🔗 Dashboard connected:', socket.id);
-  
-  // Send current stats to new connections
-  socket.emit('stats_update', {
-    totalVisitors: activeVisitors.size,
-    activeVisitors: activeVisitors.size,
-    recentActivity: recentActivity.slice(0, 10)
-  });
-  
-  socket.on('disconnect', () => {
-    console.log('❌ Dashboard disconnected:', socket.id);
-  });
-});
+// Removed Socket.IO - no longer needed
 
-// Clean up inactive visitors every minute
-setInterval(() => {
-  const now = Date.now();
-  const timeout = 5 * 60 * 1000; // 5 minutes
-  
-  for (const [sessionId, visitor] of activeVisitors) {
-    if (now - visitor.lastActivity > timeout) {
-      console.log(`🚪 Visitor timeout: ${sessionId.slice(0, 8)}`);
-      activeVisitors.delete(sessionId);
-      io.emit('visitor_left', { sessionId });
-    }
-  }
-}, 60000);
+// Removed visitor cleanup - no longer needed
 
 // Start server
 server.listen(PORT, () => {
