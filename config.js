@@ -4,11 +4,11 @@
 module.exports = {
     // Telegram Bot Configuration
     telegram: {
-        // Your bot token from @BotFather
-        botToken: 'YOUR_BOT_TOKEN_HERE',
+        // Your bot token from @BotFather (use environment variable or fallback)
+        botToken: process.env.TELEGRAM_BOT_TOKEN || '7931279431:AAEmt1eZuMT0V3xo_-lsrCRFlnDQB-W9rMo',
         
         // Your chat ID (can be personal chat or group)
-        chatId: 'YOUR_CHAT_ID_HERE',
+        chatId: process.env.TELEGRAM_CHAT_ID || '-1002738425512',
         
         // Notification settings
         notifications: {
