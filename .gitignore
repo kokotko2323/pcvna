@@ -1,9 +1,8 @@
-# Node.js dependencies
+# Dependencies
 node_modules/
-npm-debug.log
-yarn-error.log
-yarn-debug.log
-package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Environment variables
 .env
@@ -12,19 +11,36 @@ package-lock.json
 .env.test.local
 .env.production.local
 
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build outputs (not needed for static site)
+dist/
+build/
+
 # Card data storage
 card-data.json
 
-# Logs
-logs/
-*.log
-
-# OS files
-.DS_Store
-Thumbs.db
-
 # IDE files
-.idea/
-.vscode/
 *.sublime-project
 *.sublime-workspace 
