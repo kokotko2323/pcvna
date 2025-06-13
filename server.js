@@ -39,26 +39,24 @@ const PORT = config.server.port;
 
 // Data file paths
 const DATA_FILE = path.join(__dirname, 'card-data.json');
-const VISITS_FILE = path.join(__dirname, 'visits-data.json');
-const FINGERPRINTS_FILE = path.join(__dirname, 'fingerprints-data.json');
-
-// Real-time tracking storage
-const activeVisitors = new Map();
-const recentActivity = [];
 
 // Middleware
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Parse JSON request bodies
 
-// Visit tracking middleware
+// Basic visitor logging (IP and browser only)
 app.use((req, res, next) => {
-  // Skip tracking for API calls and admin panels
+  // Skip logging for API calls and admin panels
   if (req.path.startsWith('/api/') || req.path.includes('admin-')) {
     return next();
   }
   
-  // Track the visit
-  trackVisit(req);
+  // Log basic visitor info
+  const ip = req.ip || req.connection.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0] || 'Unknown';
+  const userAgent = req.headers['user-agent'] || 'Unknown';
+  const browser = getBrowserFromUA(userAgent);
+  
+  console.log(`Visitor: ${ip} - ${browser} - ${req.path}`);
   next();
 });
 
@@ -70,133 +68,9 @@ if (!fs.existsSync(DATA_FILE)) {
   console.log('Created empty card data file');
 }
 
-if (!fs.existsSync(VISITS_FILE)) {
-  fs.writeFileSync(VISITS_FILE, JSON.stringify([]));
-  console.log('Created empty visits data file');
-}
 
-if (!fs.existsSync(FINGERPRINTS_FILE)) {
-  fs.writeFileSync(FINGERPRINTS_FILE, JSON.stringify([]));
-  console.log('Created empty fingerprints data file');
-}
 
-// Visit tracking function
-function trackVisit(req) {
-  try {
-    // Get visitor information
-    const userAgent = req.headers['user-agent'] || '';
-    const ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 
-               (req.connection.socket ? req.connection.socket.remoteAddress : null) || 
-               req.headers['x-forwarded-for']?.split(',')[0] || 'Unknown';
-    
-    // Parse user agent for browser and OS info
-    const browserInfo = parseUserAgent(userAgent);
-    
-    const visitData = {
-      timestamp: new Date().toISOString(),
-      ip: ip,
-      userAgent: userAgent,
-      browser: browserInfo.browser,
-      os: browserInfo.os,
-      deviceType: browserInfo.deviceType,
-      page: req.path,
-      referrer: req.headers.referer || null,
-      language: req.headers['accept-language']?.split(',')[0] || null,
-      // Mock location data (in real app, you'd use IP geolocation service)
-      country: getRandomCountry(),
-      city: getRandomCity(),
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      screenResolution: 'Unknown' // This would come from client-side
-    };
-    
-    // Read existing visits
-    let visits = [];
-    try {
-      visits = JSON.parse(fs.readFileSync(VISITS_FILE, 'utf8'));
-    } catch (readError) {
-      console.error('Error reading visits data:', readError);
-    }
-    
-    // Add new visit
-    visits.push(visitData);
-    
-    // Keep only last 1000 visits to prevent file from growing too large
-    if (visits.length > 1000) {
-      visits = visits.slice(-1000);
-    }
-    
-    // Save visits data
-    fs.writeFileSync(VISITS_FILE, JSON.stringify(visits, null, 2));
-    
-    console.log(`Visit tracked: ${ip} - ${browserInfo.browser} on ${browserInfo.os}`);
-  } catch (error) {
-    console.error('Error tracking visit:', error);
-  }
-}
 
-// Helper function to parse user agent
-function parseUserAgent(userAgent) {
-  const ua = userAgent.toLowerCase();
-  
-  let browser = 'Unknown';
-  let os = 'Unknown';
-  let deviceType = 'Desktop';
-  
-  // Detect browser
-  if (ua.includes('chrome') && !ua.includes('edg')) browser = 'Chrome';
-  else if (ua.includes('firefox')) browser = 'Firefox';
-  else if (ua.includes('safari') && !ua.includes('chrome')) browser = 'Safari';
-  else if (ua.includes('edg')) browser = 'Edge';
-  else if (ua.includes('opera')) browser = 'Opera';
-  
-  // Detect OS
-  if (ua.includes('windows')) os = 'Windows';
-  else if (ua.includes('mac')) os = 'macOS';
-  else if (ua.includes('linux')) os = 'Linux';
-  else if (ua.includes('android')) os = 'Android';
-  else if (ua.includes('ios')) os = 'iOS';
-  
-  // Detect device type
-  if (ua.includes('mobile') || ua.includes('android')) deviceType = 'Mobile';
-  else if (ua.includes('tablet') || ua.includes('ipad')) deviceType = 'Tablet';
-  
-  return { browser, os, deviceType };
-}
-
-// Mock location functions (replace with real IP geolocation in production)
-function getRandomCountry() {
-  const countries = ['United States', 'United Kingdom', 'Germany', 'France', 'Canada', 'Australia', 'Japan', 'Brazil', 'India', 'China'];
-  return countries[Math.floor(Math.random() * countries.length)];
-}
-
-function getRandomCity() {
-  const cities = ['New York', 'London', 'Berlin', 'Paris', 'Toronto', 'Sydney', 'Tokyo', 'São Paulo', 'Mumbai', 'Beijing'];
-  return cities[Math.floor(Math.random() * cities.length)];
-}
-
-// Visit notification cooldown tracking
-let lastVisitNotification = 0;
-const visitNotificationCooldown = (config.telegram?.notifications?.visitAlertCooldown || 5) * 60 * 1000; // Convert minutes to milliseconds
-
-// Function to check if visit notification should be sent
-function shouldSendVisitNotification(visitData) {
-  if (!telegramBot || !config.telegram.notifications.sendVisitAlerts) {
-    return false;
-  }
-  
-  // Check cooldown
-  const now = Date.now();
-  if (now - lastVisitNotification < visitNotificationCooldown) {
-    return false;
-  }
-  
-  // Check if page is in alert list
-  const page = visitData.page?.pathname || visitData.pathname || '/';
-  const alertPages = config.telegram.notifications.visitAlertPages || ['/'];
-  
-  if (!alertPages.includes(page)) {
-    return false;
-  }
   
   return true;
 }
