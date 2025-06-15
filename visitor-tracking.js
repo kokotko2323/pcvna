@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('Visitor tracking initializing...');
     
     try {
+        // Check if we're on the index page - ONLY track visits to index.html
+        const isIndexPage = window.location.pathname === '/' || 
+                           window.location.pathname === '/index.html' || 
+                           window.location.pathname.endsWith('/index.html');
+        
+        // Skip tracking if not on index page
+        if (!isIndexPage) {
+            console.log('Not on index page, skipping visitor tracking');
+            return;
+        }
+        
+        console.log('On index page, initializing visitor tracking...');
+        
         // Check if the required scripts are loaded
         if (typeof TELEGRAM_CONFIG === 'undefined' || typeof VisitorTracker === 'undefined') {
             console.error('Visitor tracking dependencies not loaded');
@@ -27,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // Initialize tracking
             await tracker.init();
+            console.log('Visitor tracking initialized successfully');
         } else {
             console.log('Visitor tracking disabled in config');
         }

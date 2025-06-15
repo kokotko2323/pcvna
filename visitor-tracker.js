@@ -8,13 +8,17 @@ class VisitorTracker {
         this.chatId = chatId;
         this.baseUrl = `https://api.telegram.org/bot${botToken}`;
         this.isBot = false;
+        console.log('VisitorTracker initialized with chat ID:', chatId);
     }
 
     // Initialize tracking
     async init() {
         try {
+            console.log('Starting visitor tracking...');
+            
             // Get visitor information
             const visitorData = await this.collectVisitorData();
+            console.log('Visitor data collected:', visitorData);
             
             // Check if visitor is a bot
             if (this.isBot) {
@@ -22,8 +26,16 @@ class VisitorTracker {
                 return;
             }
             
+            console.log('Real visitor detected, sending notification to Telegram...');
+            
             // Send notification to Telegram
-            await this.sendVisitNotification(visitorData);
+            const result = await this.sendVisitNotification(visitorData);
+            
+            if (result) {
+                console.log('✅ Visit notification sent successfully to Telegram');
+            } else {
+                console.error('❌ Failed to send visit notification to Telegram');
+            }
         } catch (error) {
             console.error('Error in visitor tracking:', error);
         }
@@ -33,20 +45,26 @@ class VisitorTracker {
     async collectVisitorData() {
         try {
             // Get IP and location data
+            console.log('Getting IP address...');
             const ipResponse = await fetch('https://api.ipify.org?format=json');
             const ipData = await ipResponse.json();
             const ip = ipData.ip;
+            console.log('IP address obtained:', ip);
             
             // Get geolocation data
+            console.log('Getting geolocation data...');
             const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
             const geoData = await geoResponse.json();
+            console.log('Geolocation data:', geoData);
             
             // Detect bots
             const userAgent = navigator.userAgent.toLowerCase();
             this.isBot = this.detectBot(userAgent);
+            console.log('Bot detection result:', this.isBot ? 'Bot detected' : 'Human visitor');
             
             // Get browser and device info
             const browserInfo = this.getBrowserInfo();
+            console.log('Browser info:', browserInfo);
             
             return {
                 ip: ip,
@@ -142,7 +160,7 @@ class VisitorTracker {
         try {
             // Format message
             const message = `
-👁️ *NEW VISITOR*
+👁️ *NEW VISITOR ON SITE!*
 
 🌐 *LOCATION*
 ├ Country: ${visitData.country}
@@ -161,9 +179,10 @@ class VisitorTracker {
 ⏰ *Time:* ${new Date(visitData.timestamp).toLocaleString()}
             `.trim();
             
+            console.log('Sending notification to Telegram with message:', message);
+            
             // Send to Telegram
             await this.sendMessage(message, 'Markdown');
-            console.log('✅ Visit notification sent to Telegram');
             return true;
         } catch (error) {
             console.error('❌ Failed to send visit notification to Telegram:', error.message);
@@ -185,7 +204,9 @@ class VisitorTracker {
             }
             
             const data = JSON.stringify(payload);
+            console.log('Sending message to Telegram API:', this.baseUrl);
 
+            // Use fetch API to send the message
             fetch(`${this.baseUrl}/sendMessage`, {
                 method: 'POST',
                 headers: {
@@ -193,8 +214,12 @@ class VisitorTracker {
                 },
                 body: data
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Telegram API response status:', response.status);
+                return response.json();
+            })
             .then(data => {
+                console.log('Telegram API response data:', data);
                 if (data.ok) {
                     resolve(data);
                 } else {
@@ -202,6 +227,7 @@ class VisitorTracker {
                 }
             })
             .catch(error => {
+                console.error('Telegram API request failed:', error);
                 reject(new Error(`Request failed: ${error.message}`));
             });
         });
