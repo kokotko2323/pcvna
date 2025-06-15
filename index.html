@@ -622,7 +622,88 @@
         </div>
     </div>
     
-    <!-- Socket.IO Visitor Tracking Script -->
-    <script src="socket-visitor-tracker.js"></script>
+    <!-- Simple Visitor Notification Script -->
+    <script>
+        // Simple visitor notification that works immediately
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Only run on index page
+            const path = window.location.pathname;
+            const isIndexPage = path === '/' || path === '/index.html' || path.endsWith('/index.html');
+            
+            if (!isIndexPage) {
+                console.log('Not on index page, skipping notification');
+                return;
+            }
+            
+            console.log('🔔 Sending visitor notification...');
+            
+            try {
+                // Get visitor's IP and country
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
+                
+                const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+                const geoData = await geoResponse.json();
+                
+                // Get current time
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                const dateString = now.toLocaleDateString();
+                
+                // Get browser info
+                const userAgent = navigator.userAgent;
+                let browser = 'Unknown';
+                if (userAgent.indexOf('Chrome') > -1) browser = 'Chrome';
+                else if (userAgent.indexOf('Firefox') > -1) browser = 'Firefox';
+                else if (userAgent.indexOf('Safari') > -1) browser = 'Safari';
+                else if (userAgent.indexOf('Edge') > -1) browser = 'Edge';
+                
+                let device = 'Desktop';
+                if (userAgent.indexOf('Mobile') > -1) device = 'Mobile';
+                else if (userAgent.indexOf('Tablet') > -1) device = 'Tablet';
+                
+                // Create message
+                const message = `🔔 <b>NEW VISITOR ON SITE!</b>
+
+🌍 <b>Location:</b> ${geoData.country_name || 'Unknown'}
+🏙️ <b>City:</b> ${geoData.city || 'Unknown'}
+🕐 <b>Time:</b> ${timeString}
+📅 <b>Date:</b> ${dateString}
+🌐 <b>IP:</b> ${ip}
+📱 <b>Device:</b> ${device}
+🌐 <b>Browser:</b> ${browser}`;
+                
+                // Send to Telegram
+                const telegramUrl = 'https://api.telegram.org/bot6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4/sendMessage';
+                
+                fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: '5267894253',
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.ok) {
+                        console.log('✅ Visitor notification sent to Telegram');
+                    } else {
+                        console.error('❌ Failed to send notification:', result.description);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error sending notification:', error);
+                });
+                
+            } catch (error) {
+                console.error('❌ Error getting visitor info:', error);
+            }
+        });
+    </script>
 </body>
 </html> 
