@@ -11,946 +11,635 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <style>
-        /* Modern glassmorphism design */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #f5f5f5;
+            color: #333;
             min-height: 100vh;
         }
         
-        .hero {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-            margin: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .verified-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo img {
+            height: 35px;
+        }
+        
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-link i {
+            font-size: 16px;
+        }
+        
+        .main-content {
+            padding: 20px 0;
+        }
+        
+        /* Hero section with verified message */
+        .verification-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .verification-content {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .verification-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #4ade80;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px auto;
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-            animation: pulse 2s infinite;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
         }
         
-        .verified-icon i {
-            font-size: 40px;
+        .verification-icon i {
+            font-size: 35px;
             color: white;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .hero h1 {
-            color: white;
+        .verification-title {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
         }
         
-        .hero-subtitle {
-            color: rgba(255,255,255,0.9);
+        .verification-subtitle {
             font-size: 1.2rem;
-            margin-bottom: 20px;
-            font-weight: 400;
+            font-weight: 500;
+            margin-bottom: 15px;
+            opacity: 0.9;
         }
         
-        .hero-description {
-            color: rgba(255,255,255,0.8);
+        .verification-message {
             font-size: 1rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 700px;
+            margin: 0 auto 30px;
             line-height: 1.6;
+            opacity: 0.9;
         }
         
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 30px;
+        .verification-id-card {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 15px 20px;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            backdrop-filter: blur(4px);
         }
         
-        /* Glassmorphism verification ID */
-        .verification-id {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 25px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        .verification-id-text {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
         
-        .verification-id strong {
-            color: #FFD700;
-            font-size: 1.1rem;
+        .verification-id-value {
             font-weight: 600;
-            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+            color: #ffd700;
         }
         
-        .verification-id small {
-            font-size: 0.85rem;
+        .verification-id-note {
+            font-size: 0.8rem;
             opacity: 0.8;
-            display: block;
-            margin-top: 8px;
         }
         
-        /* Modern buttons */
-        .primary-btn {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 12px 24px;
-            font-size: 14px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .primary-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        
-        .secondary-btn {
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 12px 24px;
-            font-size: 14px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .secondary-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
-        
-        .hero-cta {
+        .action-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin: 30px 0;
+            margin-bottom: 30px;
         }
         
-        /* Glassmorphism support banner */
+        .primary-btn, .secondary-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .primary-btn {
+            background-color: white;
+            color: #4f46e5;
+            border: none;
+        }
+        
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .secondary-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
         .support-banner {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .support-icon i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        .support-text {
+            font-size: 0.9rem;
         }
         
         .support-button {
-            background: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .support-button:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-1px);
+            background-color: rgba(255, 255, 255, 0.3);
         }
         
-        /* Hero image - make it smaller and responsive */
-        .hero-image {
+        /* Verification image section */
+        .verification-image-container {
             position: relative;
-            max-width: 500px;
-            margin: 30px auto 0 auto;
-            border-radius: 15px;
+            max-width: 350px;
+            margin: 0 auto;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
         
-        .hero-image img {
+        .verification-image {
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
         
-        .hero-status {
+        .verification-status {
             position: absolute;
             bottom: 15px;
             left: 15px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 12px;
             border-radius: 20px;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            gap: 6px;
         }
         
         .status-dot {
             width: 8px;
             height: 8px;
-            background: #4CAF50;
+            background-color: #4ade80;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            display: inline-block;
         }
         
-        /* Modern sections */
-        .service-steps {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 40px 0;
-            margin: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        /* Notice box */
+        .notice-box {
+            background-color: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid #6366f1;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
         }
         
-        .service-steps h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-align: center;
+        .notice-icon {
+            color: #6366f1;
+            font-size: 20px;
+        }
+        
+        .notice-content h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #4f46e5;
+        }
+        
+        .notice-content p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        
+        /* Success banner */
+        .success-banner {
+            background-color: #4ade80;
             color: white;
-            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
         }
         
-        .steps-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 30px;
+        .success-banner h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .success-banner p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Steps section */
+        .steps-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .steps-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
         
         .step-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 25px;
-            border-radius: 15px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
         }
         
         .step-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            background: rgba(255,255,255,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #6366f1;
         }
         
         .step-number {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            width: 35px;
+            height: 35px;
+            background-color: #6366f1;
             color: white;
-            width: 40px;
-            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 600;
             font-size: 16px;
-            font-weight: 700;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
         
         .step-icon {
-            color: #4CAF50;
             font-size: 24px;
+            color: #6366f1;
             margin-bottom: 15px;
         }
         
-        .step-card h3 {
-            font-size: 1.2rem;
-            margin: 15px 0 10px 0;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .step-card p {
-            font-size: 0.9rem;
-            margin: 0;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.5;
-        }
-        
-        /* Notification box with glassmorphism */
-        .notification-box {
-            background: rgba(255, 193, 7, 0.15);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-left: 4px solid #FFC107;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            box-shadow: 0 8px 32px rgba(255, 193, 7, 0.1);
-        }
-        
-        .notification-box i {
-            color: #FFC107;
-            font-size: 20px;
-            margin-top: 2px;
-        }
-        
-        .notification-content h4 {
-            margin: 0 0 8px 0;
-            color: white;
+        .step-title {
             font-size: 1.1rem;
-            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
         }
         
-        .notification-content p {
-            margin: 0;
-            color: rgba(255,255,255,0.9);
+        .step-description {
             font-size: 0.9rem;
+            color: #6b7280;
             line-height: 1.5;
         }
         
-        /* Success banner */
-        .success-banner {
-            background: rgba(76, 175, 80, 0.2);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2);
-        }
-        
-        .success-banner h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-        
-        .success-banner p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-        
-        /* Account verification section */
-        .account-verification {
-            margin: 20px;
-        }
-        
-        .verification-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        
-        .verification-image img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .verification-content {
-            padding: 30px;
-        }
-        
-        .verification-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .verification-icon {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-        }
-        
-        .verification-icon i {
-            color: white;
-            font-size: 24px;
-        }
-        
-        .verification-header h2 {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0;
-            font-weight: 600;
-        }
-        
-        .verification-details {
-            margin: 20px 0;
-        }
-        
-        .detail-item {
-            padding: 10px 0;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.9);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .detail-item i {
-            color: #4CAF50;
-            font-size: 16px;
-        }
-        
-        .verification-text {
-            margin: 25px 0;
-        }
-        
-        .verification-text p {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-        
-        .verification-btn {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-        
-        .verification-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-        }
-        
-        /* Testimonials */
-        .testimonials-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 40px 0;
-            margin: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        
-        .testimonials-header h2 {
-            font-size: 2rem;
-            text-align: center;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-        
-        .testimonial-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 25px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-        }
-        
-        .testimonial-text {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .testimonial-avatar img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .testimonial-name {
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .testimonial-rating {
-            color: #FFD700;
-            font-size: 12px;
-        }
-        
-        /* Responsive design */
+        /* Responsive styles */
         @media (max-width: 768px) {
-            .hero {
-                margin: 10px;
-                padding: 30px 0;
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .hero h1 {
+            .search-bar {
+                max-width: 100%;
+                margin: 15px 0;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .verification-title {
                 font-size: 2rem;
             }
             
-            .hero-subtitle {
+            .verification-subtitle {
                 font-size: 1rem;
             }
             
-            .hero-description {
+            .verification-message {
                 font-size: 0.9rem;
-                padding: 0 10px;
             }
             
-            .hero-content {
-                padding: 0 20px;
-            }
-            
-            .hero-cta {
+            .action-buttons {
                 flex-direction: column;
                 gap: 10px;
-                padding: 0 20px;
             }
             
             .primary-btn, .secondary-btn {
                 width: 100%;
                 justify-content: center;
-                padding: 12px;
-            }
-            
-            .hero-image {
-                max-width: 100%;
-                margin: 20px 10px 0 10px;
-            }
-            
-            .hero-image img {
-                height: 200px;
-            }
-            
-            .service-steps, .testimonials-section {
-                margin: 10px;
-                padding: 30px 0;
-            }
-            
-            .service-steps h2, .testimonials-header h2 {
-                font-size: 1.5rem;
-                padding: 0 20px;
-            }
-            
-            .steps-container, .testimonials-grid {
-                grid-template-columns: 1fr;
-                padding: 0 20px;
-                gap: 15px;
-            }
-            
-            .step-card, .testimonial-card {
-                padding: 20px;
-            }
-            
-            .verification-card {
-                margin: 10px;
-            }
-            
-            .verification-content {
-                padding: 20px;
-            }
-            
-            .notification-box, .success-banner {
-                margin: 10px;
-                padding: 15px;
             }
             
             .support-banner {
                 flex-direction: column;
+                gap: 15px;
                 text-align: center;
-                gap: 10px;
+            }
+            
+            .support-button {
+                width: 100%;
+                justify-content: center;
             }
         }
         
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 0.9rem;
-            }
-            
-            .hero-description {
-                font-size: 0.85rem;
-            }
-            
-            .verified-icon {
+            .verification-icon {
                 width: 60px;
                 height: 60px;
             }
             
-            .verified-icon i {
+            .verification-icon i {
                 font-size: 30px;
             }
             
-            .service-steps h2, .testimonials-header h2 {
+            .verification-title {
+                font-size: 1.8rem;
+            }
+            
+            .verification-id-card {
+                padding: 12px 15px;
+            }
+            
+            .steps-title {
                 font-size: 1.3rem;
             }
             
-            .step-card h3 {
+            .step-title {
                 font-size: 1rem;
             }
-            
-            .step-card p {
-                font-size: 0.85rem;
+        }
+        
+        /* Two-column layout for desktop */
+        @media (min-width: 992px) {
+            .verification-hero-content {
+                display: flex;
+                align-items: center;
             }
             
-            .verification-header h2 {
-                font-size: 1.2rem;
+            .verification-content {
+                flex: 1;
+                text-align: left;
+                padding-right: 40px;
+            }
+            
+            .verification-icon,
+            .verification-id-card,
+            .action-buttons,
+            .support-banner {
+                margin-left: 0;
+            }
+            
+            .verification-image-wrapper {
+                flex: 0 0 40%;
+                padding: 20px;
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="top-bar">
-            <div class="logo">
-                <img src="images/logo.png" alt="PandaBuy Logo">
-            </div>
-            <div class="search-container">
-                <input type="text" placeholder="Search for your parcels or track shipments...">
-                <button type="button" class="search-icon"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="right-menu">
-                <a href="#" class="menu-item"><i class="fas fa-box"></i> My Parcels</a>
-                <a href="#" class="menu-item"><i class="fas fa-truck"></i> Track Shipment</a>
-                <a href="https://t.me/azzarro" target="_blank" class="menu-item support-link"><i class="fas fa-headset"></i> Support</a>
-                <div class="language-selector menu-item">
-                    <span><i class="fas fa-globe"></i> English / CNY</span>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.pandabuy.com/static/logo.png" alt="PandaBuy Logo">
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for your parcels or track shipment...">
+                    <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link"><i class="fas fa-box"></i> My Parcels</a>
+                    <a href="#" class="nav-link"><i class="fas fa-truck"></i> Track Shipment</a>
+                    <a href="https://t.me/azzarro" class="nav-link"><i class="fas fa-headset"></i> Support</a>
+                    <a href="#" class="nav-link"><i class="fas fa-globe"></i> English / CNY</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="verified-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <h1>Verified!</h1>
-                <h2 class="hero-subtitle">Your account verification is complete</h2>
-                <p class="hero-description">Congratulations! Your identity has been successfully verified. All your parcels have been unfrozen and are now being processed for immediate shipment.</p>
-                
-                <div class="verification-id">
-                    <p>Your Verification ID: <strong>VF-2024-<span id="verificationId"></span></strong></p>
-                    <small>Save this ID for your records</small>
-                </div>
-                
-                <div class="hero-cta">
-                    <button type="button" class="primary-btn" onclick="window.location.href='/'">
-                        <i class="fas fa-home"></i>
-                        Back to Dashboard
-                    </button>
-                    <button type="button" class="secondary-btn">
-                        <i class="fas fa-download"></i>
-                        Download Receipt
-                    </button>
-                </div>
-                
-                <div class="support-banner">
-                    <div class="support-icon">
-                        <i class="fab fa-telegram"></i>
+    <main class="main-content">
+        <div class="container">
+            <section class="verification-hero">
+                <div class="verification-hero-content">
+                    <div class="verification-content">
+                        <div class="verification-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h1 class="verification-title">Verified!</h1>
+                        <h2 class="verification-subtitle">Your account verification is complete</h2>
+                        <p class="verification-message">
+                            Congratulations! Your identity has been successfully verified. All your parcels have been unfrozen and are now being processed for immediate shipment.
+                        </p>
+                        
+                        <div class="verification-id-card">
+                            <p class="verification-id-text">Your Verification ID: <span class="verification-id-value">VF-2024-<span id="verificationId"></span></span></p>
+                            <small class="verification-id-note">Save this ID for your records</small>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button type="button" class="primary-btn" onclick="window.location.href='/'">
+                                <i class="fas fa-home"></i> Back to Dashboard
+                            </button>
+                            <button type="button" class="secondary-btn">
+                                <i class="fas fa-download"></i> Download Receipt
+                            </button>
+                        </div>
+                        
+                        <div class="support-banner">
+                            <div class="support-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="support-text">
+                                Questions about your verification?
+                            </div>
+                            <a href="https://t.me/azzarro" class="support-button">
+                                Contact Support <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="support-text">
-                        <p>Questions about your verification?</p>
+                    
+                    <div class="verification-image-wrapper">
+                        <div class="verification-image-container">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Warehouse" class="verification-image">
+                            <div class="verification-status">
+                                <span class="status-dot"></span> Verification Complete
+                            </div>
+                        </div>
                     </div>
-                    <a href="https://t.me/azzarro" target="_blank" class="support-button">
-                        Contact Support
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                </div>
+            </section>
+            
+            <div class="notice-box">
+                <div class="notice-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="notice-content">
+                    <h3>Important Notice</h3>
+                    <p>You will be notified about your parcels in the next few days. Please note that processing may take longer than usual as we are currently experiencing high volume and our systems are under heavy load.</p>
                 </div>
             </div>
             
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Packages being prepared for shipping">
-                <div class="hero-status">
-                    <div class="status-dot"></div>
-                    <span>Verification Complete</span>
+            <div class="success-banner">
+                <h3><i class="fas fa-shipping-fast"></i> Your Parcels Are Being Processed</h3>
+                <p>All frozen parcels have been released and are now in our shipping queue. You'll receive tracking information within 24-48 hours.</p>
+            </div>
+            
+            <section class="steps-section">
+                <h2 class="steps-title">What's Next?</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon"><i class="fas fa-user-check"></i></div>
+                        <h3 class="step-title">Identity Verified</h3>
+                        <p class="step-description">Your identity has been successfully verified and confirmed in our system.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                        <h3 class="step-title">Parcels Released</h3>
+                        <p class="step-description">All your frozen parcels have been unfrozen and released for processing.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                        <h3 class="step-title">Now Processing</h3>
+                        <p class="step-description">Your parcels are being prepared and packaged for shipment right now.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon"><i class="fas fa-truck"></i></div>
+                        <h3 class="step-title">Shipping Soon</h3>
+                        <p class="step-description">You'll receive tracking information via email within 24-48 hours.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Notification Box -->
-        <div class="notification-box">
-            <i class="fas fa-info-circle"></i>
-            <div class="notification-content">
-                <h4>Important Notice</h4>
-                <p>You will be notified about your parcels in the next few days. Please note that processing may take longer than usual as we are currently experiencing high volume and our systems are under heavy load.</p>
-            </div>
+            </section>
         </div>
-
-        <div class="success-banner">
-            <h3><i class="fas fa-shipping-fast"></i> Your Parcels Are Being Processed</h3>
-            <p>All frozen parcels have been released and are now in our shipping queue. You'll receive tracking information within 24-48 hours.</p>
-        </div>
-
-        <section class="service-steps">
-            <h2>What's Next?</h2>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-icon"><i class="fas fa-user-check"></i></div>
-                    <h3>Identity Verified</h3>
-                    <p>Your identity has been successfully verified and confirmed in our system.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <div class="step-icon"><i class="fas fa-unlock"></i></div>
-                    <h3>Parcels Released</h3>
-                    <p>All your frozen parcels have been unfrozen and released for processing.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-icon"><i class="fas fa-box-open"></i></div>
-                    <h3>Now Processing</h3>
-                    <p>Your parcels are being prepared and packaged for shipment right now.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <div class="step-icon"><i class="fas fa-truck"></i></div>
-                    <h3>Shipping Soon</h3>
-                    <p>You'll receive tracking information via email within 24-48 hours.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="account-verification">
-            <div class="verification-card">
-                <div class="verification-image">
-                    <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Parcels ready to ship">
-                </div>
-                <div class="verification-content">
-                    <div class="verification-header">
-                        <div class="verification-icon">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <h2>Verification Certificate</h2>
-                    </div>
-                    
-                    <div class="verification-details">
-                        <div class="detail-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Identity verification: PASSED</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Account security: VERIFIED</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Parcel release: AUTHORIZED</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Shipping status: PROCESSING</span>
-                        </div>
-                    </div>
-                    
-                    <div class="verification-text">
-                        <p><strong>Verification completed successfully!</strong> Your account is now fully verified and all restrictions have been lifted. Your parcels are being processed for immediate shipment.</p>
-                    </div>
-                    
-                    <div class="verification-footer">
-                        <button class="verification-btn" onclick="window.location.href='/'">
-                            <i class="fas fa-tachometer-alt"></i>
-                            Go to Dashboard
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="testimonials-section">
-            <div class="testimonials-container">
-                <div class="testimonials-header">
-                    <h2>Verified Customer Reviews</h2>
-                </div>
-                
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p class="testimonial-text">
-                                "The verification process was quick and easy. My parcels were released immediately and I got my items in just 3 days!"
-                            </p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">
-                                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Michael T.">
-                                </div>
-                                <div class="testimonial-info">
-                                    <div class="testimonial-name">Michael T. <i class="fas fa-check-circle" style="color: #4caf50; font-size: 12px;"></i></div>
-                                    <div class="testimonial-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p class="testimonial-text">
-                                "I was worried about the verification, but it was totally worth it. My frozen parcels were released and delivered safely!"
-                            </p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">
-                                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Sarah K.">
-                                </div>
-                                <div class="testimonial-info">
-                                    <div class="testimonial-name">Sarah K. <i class="fas fa-check-circle" style="color: #4caf50; font-size: 12px;"></i></div>
-                                    <div class="testimonial-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Our Mission</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Support Center</h3>
-                <ul>
-                    <li><a href="#">Help & FAQ</a></li>
-                    <li><a href="#">Contact Support</a></li>
-                    <li><a href="#">Shipping Information</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Legal Information</h3>
-                <ul>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Prohibited Items</a></li>
-                    <li><a href="#">Customs Regulations</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Secure Payments</h3>
-                <div class="payment-methods">
-                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/visa.svg" alt="Visa">
-                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/mastercard.svg" alt="Mastercard">
-                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/amex.svg" alt="American Express">
-                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/paypal.svg" alt="PayPal">
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="copyright-bar">
-                <div class="legal-info">
-                    <div class="company-info">
-                        <p>&copy; 2024 PandaBuy. All rights reserved.</p>
-                    </div>
-                    <div class="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">Legal Notice</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
     <script>
         // Generate random verification ID
         document.getElementById('verificationId').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
