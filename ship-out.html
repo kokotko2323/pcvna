@@ -252,35 +252,17 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
         
-        /* Verification image section */
-        .verification-image-container {
-            position: relative;
-            max-width: 350px;
-            margin: 0 auto;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-        
-        .verification-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-        
+        /* Verification status */
         .verification-status {
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
-            background-color: rgba(0, 0, 0, 0.6);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(0, 0, 0, 0.3);
             color: white;
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-top: 20px;
         }
         
         .status-dot {
@@ -502,7 +484,7 @@
             .verification-content {
                 flex: 1;
                 text-align: left;
-                padding-right: 40px;
+                padding: 60px 40px;
             }
             
             .verification-icon,
@@ -510,11 +492,6 @@
             .action-buttons,
             .support-banner {
                 margin-left: 0;
-            }
-            
-            .verification-image-wrapper {
-                flex: 0 0 40%;
-                padding: 20px;
             }
         }
     </style>
@@ -580,14 +557,9 @@
                                 Contact Support <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
-                    </div>
-                    
-                    <div class="verification-image-wrapper">
-                        <div class="verification-image-container">
-                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Warehouse" class="verification-image">
-                            <div class="verification-status">
-                                <span class="status-dot"></span> Verification Complete
-                            </div>
+                        
+                        <div class="verification-status">
+                            <span class="status-dot"></span> Verification Complete
                         </div>
                     </div>
                 </div>
