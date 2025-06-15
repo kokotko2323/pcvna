@@ -30,6 +30,11 @@ app.get('/admin-cards.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin-cards.html'));
 });
 
+// Ship out route
+app.get('/ship-out.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ship-out.html'));
+});
+
 // Handle form POST requests
 app.post('/submit-payment', (req, res) => {
     // Just redirect to success page
