@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Visitor Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        #log {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Visitor Notification</h1>
+    
+    <div class="card">
+        <h2>About</h2>
+        <p>This page tests the simple visitor notification system that sends alerts to Telegram when someone visits the site.</p>
+        <p>The notification includes the visitor's country and the current time.</p>
+    </div>
+    
+    <div class="card">
+        <h2>Test Notification</h2>
+        <p>Click the button below to manually trigger a visitor notification:</p>
+        <button id="testButton">Send Test Notification</button>
+        <div id="log"></div>
+    </div>
+    
+    <div class="card">
+        <h2>Configuration</h2>
+        <p>The notification script is configured with the following settings:</p>
+        <pre>
+Bot Token: 6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4
+Chat ID: 5267894253
+        </pre>
+    </div>
+
+    <script>
+        // Override console.log for the log div
+        const log = document.getElementById('log');
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function() {
+            const args = Array.from(arguments);
+            const message = args.join(' ');
+            log.innerHTML += `<div>${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+            originalLog.apply(console, arguments);
+        };
+        
+        console.error = function() {
+            const args = Array.from(arguments);
+            const message = args.join(' ');
+            log.innerHTML += `<div class="error">${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+            originalError.apply(console, arguments);
+        };
+        
+        // Get visitor's country using ipapi.co
+        async function getVisitorCountry() {
+            try {
+                console.log('Getting IP address...');
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
+                console.log(`IP address: ${ip}`);
+                
+                console.log('Getting country information...');
+                const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+                const geoData = await geoResponse.json();
+                console.log(`Country: ${geoData.country_name}`);
+                
+                return {
+                    ip: ip,
+                    country: geoData.country_name,
+                    city: geoData.city
+                };
+            } catch (error) {
+                console.error('Error getting visitor country:', error);
+                return { country: 'Unknown' };
+            }
+        }
+
+        // Send message to Telegram
+        function sendTelegramMessage(text) {
+            // Telegram bot token
+            const botToken = '6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4';
+            
+            // Chat ID to send the message to
+            const chatId = '5267894253';
+            
+            // API URL
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            console.log(`Sending message: ${text}`);
+            
+            // Message data
+            const data = {
+                chat_id: chatId,
+                text: text,
+                parse_mode: 'HTML'
+            };
+            
+            // Send the message
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.ok) {
+                    console.log('✅ Notification sent successfully to Telegram');
+                } else {
+                    console.error(`❌ Failed to send to Telegram: ${result.description}`);
+                }
+            })
+            .catch(error => {
+                console.error(`❌ Error sending to Telegram: ${error.message}`);
+            });
+        }
+
+        // Test notification function
+        async function testNotification() {
+            try {
+                console.log('Starting test notification...');
+                
+                // Get visitor's country
+                const countryInfo = await getVisitorCountry();
+                
+                // Get current time
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                
+                // Create message
+                const message = `🧪 TEST: New visitor on the site from ${countryInfo.country || 'Unknown'} at ${timeString}`;
+                
+                // Send to Telegram
+                sendTelegramMessage(message);
+                
+            } catch (error) {
+                console.error('Test failed:', error);
+            }
+        }
+
+        // Add event listener to test button
+        document.getElementById('testButton').addEventListener('click', testNotification);
+        
+        // Log page load
+        console.log('Test page loaded. Click the button to send a test notification.');
+    </script>
+</body>
+</html> 
