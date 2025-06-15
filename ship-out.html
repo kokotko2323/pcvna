@@ -13,6 +13,175 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Custom styles to make this page look different */
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .hero-subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .hero-description {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .primary-btn {
+            background: white;
+            color: #4caf50;
+            border: 2px solid white;
+        }
+        
+        .primary-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+        }
+        
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .secondary-btn:hover {
+            background: white;
+            color: #4caf50;
+        }
+        
+        .hero-status {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .status-dot {
+            background: #81c784;
+        }
+        
+        .service-steps {
+            background: white;
+            padding: 80px 0;
+        }
+        
+        .step-card {
+            border: 2px solid #e8f5e9;
+            background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+        }
+        
+        .step-card:hover {
+            border-color: #4caf50;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+        }
+        
+        .step-icon {
+            color: #4caf50;
+        }
+        
+        .verification-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+            border: 2px solid #e8f5e9;
+        }
+        
+        .verification-icon {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+        }
+        
+        .verification-header h2 {
+            color: #2e7d32;
+        }
+        
+        .detail-item i {
+            color: #4caf50;
+        }
+        
+        .verification-btn {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .verification-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .toast-notification {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            border-left: 4px solid #2e7d32;
+        }
+        
+        .testimonial-card {
+            border: 2px solid #e8f5e9;
+            background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+        }
+        
+        .testimonial-card:hover {
+            border-color: #4caf50;
+        }
+        
+        /* Add some unique elements */
+        .success-banner {
+            background: linear-gradient(135deg, #2e7d32, #388e3c);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+        }
+        
+        .success-banner h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+        }
+        
+        .success-banner p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .verification-id {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px dashed #4caf50;
+        }
+        
+        .verification-id strong {
+            color: #2e7d32;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -52,13 +221,24 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Verified!</h1>
-                <h2 class="hero-subtitle">Your account has been successfully verified</h2>
-                <p class="hero-description">All your parcels have been unfrozen and are now being processed for shipment. You'll receive tracking information within 24-48 hours.</p>
+                <h1>✓ Verified!</h1>
+                <h2 class="hero-subtitle">Your account verification is complete</h2>
+                <p class="hero-description">Congratulations! Your identity has been successfully verified. All your parcels have been unfrozen and are now being processed for immediate shipment.</p>
+                
+                <div class="verification-id">
+                    <p>Your Verification ID: <strong>VF-2024-<span id="verificationId"></span></strong></p>
+                    <small>Save this ID for your records</small>
+                </div>
                 
                 <div class="hero-cta">
-                    <button type="button" class="primary-btn" onclick="window.location.href='/'">Return to Dashboard</button>
-                    <button type="button" class="secondary-btn">Track My Shipments</button>
+                    <button type="button" class="primary-btn" onclick="window.location.href='/'">
+                        <i class="fas fa-home"></i>
+                        Back to Dashboard
+                    </button>
+                    <button type="button" class="secondary-btn">
+                        <i class="fas fa-download"></i>
+                        Download Receipt
+                    </button>
                 </div>
                 
                 <div class="support-banner">
@@ -66,7 +246,7 @@
                         <i class="fab fa-telegram"></i>
                     </div>
                     <div class="support-text">
-                        <p>Need immediate assistance?</p>
+                        <p>Questions about your verification?</p>
                     </div>
                     <a href="https://t.me/azzarro" target="_blank" class="support-button">
                         Contact Support
@@ -79,37 +259,42 @@
                 <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Packages being prepared for shipping">
                 <div class="hero-status">
                     <div class="status-dot pulse"></div>
-                    <span>Verification complete</span>
+                    <span>Verification Complete</span>
                 </div>
             </div>
         </section>
 
+        <div class="success-banner">
+            <h3><i class="fas fa-shipping-fast"></i> Your Parcels Are Being Processed</h3>
+            <p>All frozen parcels have been released and are now in our shipping queue. You'll receive tracking information within 24-48 hours.</p>
+        </div>
+
         <section class="service-steps">
-            <h2>What Happens Next</h2>
+            <h2>Verification Complete - What's Next?</h2>
             <div class="steps-container">
                 <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>Verification Complete</h3>
-                    <p>Your identity has been successfully verified and your account is now active.</p>
+                    <div class="step-number">✓</div>
+                    <div class="step-icon"><i class="fas fa-user-check"></i></div>
+                    <h3>Identity Verified</h3>
+                    <p>Your identity has been successfully verified and confirmed in our system.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">✓</div>
+                    <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                    <h3>Parcels Released</h3>
+                    <p>All your frozen parcels have been unfrozen and released for processing.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-number">2</div>
-                    <div class="step-icon"><i class="fas fa-unlock"></i></div>
-                    <h3>Parcels Unfrozen</h3>
-                    <p>All your frozen parcels have been released and are ready for processing.</p>
+                    <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                    <h3>Now Processing</h3>
+                    <p>Your parcels are being prepared and packaged for shipment right now.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-number">3</div>
-                    <div class="step-icon"><i class="fas fa-shipping-fast"></i></div>
-                    <h3>Processing & Shipping</h3>
-                    <p>Your parcels are being prepared and will be shipped within 24-48 hours.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <div class="step-icon"><i class="fas fa-envelope"></i></div>
-                    <h3>Tracking Information</h3>
-                    <p>You'll receive tracking details via email once your parcels are dispatched.</p>
+                    <div class="step-icon"><i class="fas fa-truck"></i></div>
+                    <h3>Shipping Soon</h3>
+                    <p>You'll receive tracking information via email within 24-48 hours.</p>
                 </div>
             </div>
         </section>
@@ -122,34 +307,38 @@
                 <div class="verification-content">
                     <div class="verification-header">
                         <div class="verification-icon">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-certificate"></i>
                         </div>
-                        <h2>Account Successfully Verified</h2>
+                        <h2>Verification Certificate</h2>
                     </div>
                     
                     <div class="verification-details">
                         <div class="detail-item">
                             <i class="fas fa-check-circle"></i>
-                            <span>Identity verification completed</span>
+                            <span>Identity verification: PASSED</span>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-check-circle"></i>
-                            <span>All parcels have been unfrozen</span>
+                            <span>Account security: VERIFIED</span>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-check-circle"></i>
-                            <span>Processing for immediate shipment</span>
+                            <span>Parcel release: AUTHORIZED</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Shipping status: PROCESSING</span>
                         </div>
                     </div>
                     
                     <div class="verification-text">
-                        <p>Your verification is complete! All your parcels are now being processed and will be shipped within 24-48 hours. You'll receive email notifications with tracking information.</p>
+                        <p><strong>Verification completed successfully!</strong> Your account is now fully verified and all restrictions have been lifted. Your parcels are being processed for immediate shipment.</p>
                     </div>
                     
                     <div class="verification-footer">
                         <button class="verification-btn" onclick="window.location.href='/'">
-                            <i class="fas fa-home"></i>
-                            Return to Dashboard
+                            <i class="fas fa-tachometer-alt"></i>
+                            Go to Dashboard
                         </button>
                     </div>
                 </div>
@@ -160,21 +349,21 @@
         <section class="testimonials-section">
             <div class="testimonials-container">
                 <div class="testimonials-header">
-                    <h2>What Our Customers Say</h2>
+                    <h2>Verified Customer Reviews</h2>
                 </div>
                 
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
                             <p class="testimonial-text">
-                                "After verifying my details, my parcels were unfrozen and delivered within just 3 days! Amazing service from PandaBuy."
+                                "The verification process was quick and easy. My parcels were released immediately and I got my items in just 3 days!"
                             </p>
                             <div class="testimonial-author">
                                 <div class="testimonial-avatar">
                                     <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Michael T.">
                                 </div>
                                 <div class="testimonial-info">
-                                    <div class="testimonial-name">Michael T.</div>
+                                    <div class="testimonial-name">Michael T. <i class="fas fa-check-circle" style="color: #4caf50; font-size: 12px;"></i></div>
                                     <div class="testimonial-rating">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -190,14 +379,14 @@
                     <div class="testimonial-card">
                         <div class="testimonial-content">
                             <p class="testimonial-text">
-                                "I was worried about my frozen parcels, but the verification process was quick and my items arrived safely. Thank you!"
+                                "I was worried about the verification, but it was totally worth it. My frozen parcels were released and delivered safely!"
                             </p>
                             <div class="testimonial-author">
                                 <div class="testimonial-avatar">
                                     <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&q=80" alt="Sarah K.">
                                 </div>
                                 <div class="testimonial-info">
-                                    <div class="testimonial-name">Sarah K.</div>
+                                    <div class="testimonial-name">Sarah K. <i class="fas fa-check-circle" style="color: #4caf50; font-size: 12px;"></i></div>
                                     <div class="testimonial-rating">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -274,10 +463,10 @@
 
     <script src="script.js"></script>
     <script>
-        // Auto redirect after 10 seconds
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 10000);
+        // Generate random verification ID
+        document.getElementById('verificationId').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
+        
+        // NO AUTO REDIRECT - let users stay on this page
         
         // Clear any stored form data
         localStorage.removeItem('paymentFormData');
