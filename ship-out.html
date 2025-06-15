@@ -23,27 +23,34 @@
         .hero {
             background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
             color: white;
-            padding: 80px 0;
+            padding: 40px 0;
         }
         
         .hero h1 {
             color: white;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
         }
         
         .hero-subtitle {
             color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
         }
         
         .hero-description {
             color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
         
         .primary-btn {
             background: white;
             color: #4caf50;
             border: 2px solid white;
+            padding: 12px 20px;
+            font-size: 14px;
         }
         
         .primary-btn:hover {
@@ -55,6 +62,8 @@
             background: transparent;
             color: white;
             border: 2px solid white;
+            padding: 12px 20px;
+            font-size: 14px;
         }
         
         .secondary-btn:hover {
@@ -74,40 +83,70 @@
         
         .service-steps {
             background: white;
-            padding: 80px 0;
+            padding: 40px 0;
+        }
+        
+        .service-steps h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
         }
         
         .step-card {
             border: 2px solid #e8f5e9;
             background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+            padding: 20px;
+            margin-bottom: 15px;
         }
         
         .step-card:hover {
             border-color: #4caf50;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
         }
         
         .step-number {
             background: linear-gradient(135deg, #4caf50, #66bb6a);
             color: white;
+            width: 35px;
+            height: 35px;
+            font-size: 14px;
         }
         
         .step-icon {
             color: #4caf50;
+            font-size: 20px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.1rem;
+            margin: 10px 0 5px 0;
+        }
+        
+        .step-card p {
+            font-size: 0.9rem;
+            margin: 0;
         }
         
         .verification-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
             border: 2px solid #e8f5e9;
+            margin: 20px 0;
         }
         
         .verification-icon {
             background: linear-gradient(135deg, #4caf50, #66bb6a);
+            width: 60px;
+            height: 60px;
         }
         
         .verification-header h2 {
             color: #2e7d32;
+            font-size: 1.5rem;
+        }
+        
+        .detail-item {
+            padding: 8px 0;
+            font-size: 0.9rem;
         }
         
         .detail-item i {
@@ -118,14 +157,15 @@
             background: linear-gradient(135deg, #4caf50, #66bb6a);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
+            padding: 12px 25px;
+            border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            font-size: 14px;
         }
         
         .verification-btn:hover {
@@ -141,45 +181,230 @@
         .testimonial-card {
             border: 2px solid #e8f5e9;
             background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+            padding: 20px;
         }
         
         .testimonial-card:hover {
             border-color: #4caf50;
         }
         
+        .testimonials-section {
+            padding: 40px 0;
+        }
+        
+        .testimonials-header h2 {
+            font-size: 1.8rem;
+        }
+        
         /* Add some unique elements */
         .success-banner {
             background: linear-gradient(135deg, #2e7d32, #388e3c);
             color: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            margin: 40px 0;
-            border-radius: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
             box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
         }
         
         .success-banner h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.5rem;
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
         }
         
         .success-banner p {
             margin: 0;
             opacity: 0.9;
+            font-size: 0.9rem;
         }
         
         .verification-id {
             background: #e8f5e9;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0;
             border: 2px dashed #4caf50;
         }
         
         .verification-id strong {
             color: #2e7d32;
-            font-size: 1.2rem;
+            font-size: 1rem;
+        }
+        
+        .verification-id small {
+            font-size: 0.8rem;
+        }
+        
+        /* Notification box */
+        .notification-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .notification-box i {
+            color: #e17055;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        
+        .notification-content h4 {
+            margin: 0 0 5px 0;
+            color: #8b4513;
+            font-size: 1rem;
+        }
+        
+        .notification-content p {
+            margin: 0;
+            color: #8b4513;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Warehouse image section */
+        .warehouse-section {
+            background: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .warehouse-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .warehouse-caption {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 30px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-description {
+                font-size: 0.9rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .primary-btn, .secondary-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px;
+            }
+            
+            .service-steps {
+                padding: 30px 0;
+            }
+            
+            .service-steps h2 {
+                font-size: 1.5rem;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .step-card {
+                padding: 15px;
+            }
+            
+            .verification-card {
+                margin: 15px 0;
+            }
+            
+            .verification-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .testimonials-section {
+                padding: 30px 0;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .testimonial-card {
+                padding: 15px;
+            }
+            
+            .warehouse-section {
+                padding: 20px 0;
+            }
+            
+            .notification-box {
+                padding: 12px;
+                margin: 15px 0;
+            }
+            
+            .success-banner {
+                padding: 12px;
+                margin: 15px 0;
+            }
+            
+            .verification-id {
+                padding: 10px;
+                margin: 12px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .service-steps h2 {
+                font-size: 1.3rem;
+            }
+            
+            .step-card h3 {
+                font-size: 1rem;
+            }
+            
+            .step-card p {
+                font-size: 0.85rem;
+            }
+            
+            .verification-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .testimonials-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -264,10 +489,26 @@
             </div>
         </section>
 
+        <!-- Notification Box -->
+        <div class="notification-box">
+            <i class="fas fa-info-circle"></i>
+            <div class="notification-content">
+                <h4>Important Notice</h4>
+                <p>You will be notified about your parcels in the next few days. Please note that processing may take longer than usual as we are currently experiencing high volume and our systems are under heavy load.</p>
+            </div>
+        </div>
+
         <div class="success-banner">
             <h3><i class="fas fa-shipping-fast"></i> Your Parcels Are Being Processed</h3>
             <p>All frozen parcels have been released and are now in our shipping queue. You'll receive tracking information within 24-48 hours.</p>
         </div>
+
+        <!-- Warehouse Section -->
+        <section class="warehouse-section">
+            <h2>Our Processing Facility</h2>
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="PandaBuy Warehouse" class="warehouse-image">
+            <p class="warehouse-caption">Your parcels are being processed at our state-of-the-art fulfillment center</p>
+        </section>
 
         <section class="service-steps">
             <h2>Verification Complete - What's Next?</h2>
