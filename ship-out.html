@@ -396,6 +396,136 @@
             line-height: 1.5;
         }
         
+        /* Footer styles */
+        footer {
+            background-color: #262626;
+            color: #fff;
+            padding: 60px 0 0;
+            margin-top: 60px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            margin-right: 30px;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section:last-child {
+            margin-right: 0;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #0088cc;
+            border-radius: 2px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: #b3b3b3;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            padding-left: 0;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .payment-methods img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .footer-bottom {
+            background-color: #1a1a1a;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+        
+        .copyright-bar {
+            background-color: #121212;
+            padding: 15px 0;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .legal-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .company-info {
+            line-height: 1.6;
+        }
+        
+        .legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .legal-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             .header-content {
@@ -444,6 +574,24 @@
             .support-button {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .footer-section h3 {
+                font-size: 16px;
+            }
+            
+            .legal-links {
+                flex-direction: column;
+                gap: 8px;
             }
         }
         
@@ -541,7 +689,7 @@
                             <button type="button" class="primary-btn" onclick="window.location.href='/'">
                                 <i class="fas fa-home"></i> Back to Dashboard
                             </button>
-                            <button type="button" class="secondary-btn">
+                            <button type="button" class="secondary-btn" onclick="generateReceipt()">
                                 <i class="fas fa-download"></i> Download Receipt
                             </button>
                         </div>
@@ -612,13 +760,126 @@
         </div>
     </main>
 
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support Center</h3>
+                <ul>
+                    <li><a href="#">Help & FAQ</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal Information</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Prohibited Items</a></li>
+                    <li><a href="#">Customs Regulations</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Secure Payments</h3>
+                <div class="payment-methods">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/visa.svg" alt="Visa">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/mastercard.svg" alt="Mastercard">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/amex.svg" alt="American Express">
+                    <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.0.0/min/flat/paypal.svg" alt="PayPal">
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PandaBuy. All rights reserved. | Secure shopping guaranteed</p>
+        </div>
+        <div class="copyright-bar">
+            <div class="legal-info">
+                <div class="company-info">
+                    Copyright© 2020-2025 pandabuy.com All Rights Reserved 浙ICP备20210003110号<br>
+                    Company name: PANDA (UK) TECHNOLOGY CO., LIMITED Company number: 14052339<br>
+                    Registered office address: Flat 107 25 Indescon Square, London, England, E14 9DG
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">User Agreement</a>
+                    <a href="#">GDPR Compliance</a>
+                    <a href="#">Shipping Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Customs Clearance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Generate random verification ID
-        document.getElementById('verificationId').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
+        const verificationId = Math.random().toString(36).substr(2, 9).toUpperCase();
+        document.getElementById('verificationId').textContent = verificationId;
         
         // Clear any stored form data
         localStorage.removeItem('paymentFormData');
         sessionStorage.clear();
+        
+        // Function to generate and download receipt
+        function generateReceipt() {
+            // Create receipt content
+            const receiptDate = new Date().toLocaleDateString();
+            const receiptTime = new Date().toLocaleTimeString();
+            
+            const receiptContent = `
+                PANDABUY VERIFICATION RECEIPT
+                --------------------------
+                
+                Date: ${receiptDate}
+                Time: ${receiptTime}
+                
+                Verification ID: VF-2024-${verificationId}
+                
+                Status: VERIFIED
+                
+                Your identity has been successfully verified.
+                All parcels have been unfrozen and are now being processed.
+                
+                You will receive tracking information within 24-48 hours.
+                
+                For support: t.me/azzarro
+                
+                Thank you for using PandaBuy!
+                
+                --------------------------
+                PANDABUY.COM
+            `;
+            
+            // Create blob and download
+            const blob = new Blob([receiptContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `PandaBuy-Receipt-${verificationId}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
     </script>
 </body>
 </html> 
