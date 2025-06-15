@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Visitor Tracking Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .status.connected {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.disconnected {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.connecting {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .log-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background: #f8f9fa;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        .log-success { color: #28a745; }
+        .log-error { color: #dc3545; }
+        .log-info { color: #17a2b8; }
+        .log-warning { color: #ffc107; }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .server-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Socket.IO Visitor Tracking Test</h1>
+        
+        <div class="server-info">
+            <h3>📡 Server Information</h3>
+            <p><strong>Socket.IO Server:</strong> http://localhost:3000</p>
+            <p><strong>Telegram Bot:</strong> 6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4</p>
+            <p><strong>Chat ID:</strong> 5267894253</p>
+        </div>
+        
+        <div id="connectionStatus" class="status connecting">
+            🔄 Initializing Socket.IO connection...
+        </div>
+        
+        <div class="card">
+            <h2>🧪 Test Controls</h2>
+            <p>Use these buttons to test the Socket.IO visitor tracking system:</p>
+            <button id="connectBtn">🔌 Connect to Server</button>
+            <button id="sendVisitorBtn" disabled>👁️ Send Visitor Data</button>
+            <button id="disconnectBtn" disabled>🔌 Disconnect</button>
+            <button id="clearLogBtn">🗑️ Clear Logs</button>
+        </div>
+        
+        <div class="card">
+            <h2>📊 Real-time Logs</h2>
+            <div id="logContainer" class="log-container">
+                <div class="log-entry log-info">Test page loaded. Click "Connect to Server" to start.</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🚀 How to Run the Server</h2>
+            <p>To test this Socket.IO implementation, you need to run the server:</p>
+            <pre>
+# Install dependencies
+npm install
+
+# Start the Socket.IO server
+npm start
+
+# Or for development with auto-restart
+npm run dev
+            </pre>
+            <p>The server will run on <code>http://localhost:3000</code></p>
+        </div>
+    </div>
+
+    <!-- Load Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    
+    <script>
+        let socket = null;
+        let isConnected = false;
+        
+        // DOM elements
+        const connectionStatus = document.getElementById('connectionStatus');
+        const logContainer = document.getElementById('logContainer');
+        const connectBtn = document.getElementById('connectBtn');
+        const sendVisitorBtn = document.getElementById('sendVisitorBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+        const clearLogBtn = document.getElementById('clearLogBtn');
+        
+        // Logging function
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        // Update connection status
+        function updateStatus(status, message) {
+            connectionStatus.className = `status ${status}`;
+            connectionStatus.innerHTML = message;
+        }
+        
+        // Connect to Socket.IO server
+        function connectToServer() {
+            try {
+                addLog('🔌 Attempting to connect to Socket.IO server...', 'info');
+                updateStatus('connecting', '🔄 Connecting to server...');
+                
+                socket = io('http://localhost:3000', {
+                    transports: ['websocket', 'polling'],
+                    timeout: 5000
+                });
+                
+                // Connection events
+                socket.on('connect', () => {
+                    isConnected = true;
+                    addLog('✅ Connected to Socket.IO server successfully!', 'success');
+                    updateStatus('connected', '✅ Connected to Socket.IO server');
+                    connectBtn.disabled = true;
+                    sendVisitorBtn.disabled = false;
+                    disconnectBtn.disabled = false;
+                });
+                
+                socket.on('connect_error', (error) => {
+                    isConnected = false;
+                    addLog(`❌ Connection error: ${error.message}`, 'error');
+                    updateStatus('disconnected', '❌ Connection failed');
+                    connectBtn.disabled = false;
+                    sendVisitorBtn.disabled = true;
+                    disconnectBtn.disabled = true;
+                });
+                
+                socket.on('disconnect', (reason) => {
+                    isConnected = false;
+                    addLog(`🔌 Disconnected: ${reason}`, 'warning');
+                    updateStatus('disconnected', '🔌 Disconnected from server');
+                    connectBtn.disabled = false;
+                    sendVisitorBtn.disabled = true;
+                    disconnectBtn.disabled = true;
+                });
+                
+                socket.on('notification-sent', (data) => {
+                    if (data.success) {
+                        addLog(`📱 Telegram notification sent! Country: ${data.country}, Time: ${data.time}`, 'success');
+                    } else {
+                        addLog(`❌ Notification failed: ${data.error}`, 'error');
+                    }
+                });
+                
+            } catch (error) {
+                addLog(`❌ Error connecting: ${error.message}`, 'error');
+                updateStatus('disconnected', '❌ Connection error');
+            }
+        }
+        
+        // Send visitor data
+        async function sendVisitorData() {
+            if (!isConnected) {
+                addLog('❌ Not connected to server', 'error');
+                return;
+            }
+            
+            try {
+                addLog('📊 Collecting visitor data...', 'info');
+                
+                // Collect visitor data
+                const visitorData = await collectVisitorData();
+                
+                addLog('📤 Sending visitor data to server...', 'info');
+                
+                // Send to server
+                socket.emit('visitor', visitorData);
+                
+            } catch (error) {
+                addLog(`❌ Error sending visitor data: ${error.message}`, 'error');
+            }
+        }
+        
+        // Collect visitor data
+        async function collectVisitorData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                page: window.location.pathname,
+                referrer: document.referrer || 'Direct',
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                screenResolution: `${screen.width}x${screen.height}`,
+                viewportSize: `${window.innerWidth}x${window.innerHeight}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            };
+            
+            // Get browser info
+            const browserInfo = getBrowserInfo();
+            data.browser = browserInfo.browser;
+            data.device = browserInfo.deviceType;
+            data.os = browserInfo.os;
+            
+            // Try to get IP address
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                data.ip = ipData.ip;
+                addLog(`🌐 IP Address: ${data.ip}`, 'info');
+            } catch (error) {
+                addLog('⚠️ Could not fetch IP address', 'warning');
+                data.ip = 'Unknown';
+            }
+            
+            return data;
+        }
+        
+        // Get browser info
+        function getBrowserInfo() {
+            const userAgent = navigator.userAgent;
+            
+            let browser = 'Unknown';
+            if (userAgent.indexOf('Firefox') > -1) browser = 'Firefox';
+            else if (userAgent.indexOf('Chrome') > -1) browser = 'Chrome';
+            else if (userAgent.indexOf('Safari') > -1) browser = 'Safari';
+            else if (userAgent.indexOf('Edge') > -1) browser = 'Edge';
+            
+            let os = 'Unknown';
+            if (userAgent.indexOf('Windows') > -1) os = 'Windows';
+            else if (userAgent.indexOf('Mac') > -1) os = 'MacOS';
+            else if (userAgent.indexOf('Linux') > -1) os = 'Linux';
+            else if (userAgent.indexOf('Android') > -1) os = 'Android';
+            else if (userAgent.indexOf('iOS') > -1) os = 'iOS';
+            
+            let deviceType = 'Desktop';
+            if (userAgent.indexOf('Mobile') > -1) deviceType = 'Mobile';
+            else if (userAgent.indexOf('Tablet') > -1) deviceType = 'Tablet';
+            
+            return { browser, os, deviceType };
+        }
+        
+        // Disconnect from server
+        function disconnectFromServer() {
+            if (socket) {
+                socket.disconnect();
+                addLog('🔌 Manually disconnected from server', 'info');
+            }
+        }
+        
+        // Clear logs
+        function clearLogs() {
+            logContainer.innerHTML = '<div class="log-entry log-info">Logs cleared.</div>';
+        }
+        
+        // Event listeners
+        connectBtn.addEventListener('click', connectToServer);
+        sendVisitorBtn.addEventListener('click', sendVisitorData);
+        disconnectBtn.addEventListener('click', disconnectFromServer);
+        clearLogBtn.addEventListener('click', clearLogs);
+        
+        // Auto-connect on page load
+        setTimeout(() => {
+            addLog('🚀 Auto-connecting to server...', 'info');
+            connectToServer();
+        }, 1000);
+    </script>
+</body>
+</html> 
