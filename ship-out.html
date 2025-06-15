@@ -882,7 +882,101 @@
         }
     </script>
 
-    <!-- Visitor Tracking Script -->
-    <script src="visitor-tracking.js"></script>
+    <!-- BULLETPROOF Visitor Notification Script -->
+    <script>
+        // Works on ANY page, uses multiple fallback methods
+        (function() {
+            console.log('🔔 BULLETPROOF visitor tracker starting...');
+            
+            // Function to send notification using image pixel method (bypasses CORS)
+            function sendTelegramNotification() {
+                try {
+                    // Get basic info without external APIs
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString();
+                    const dateString = now.toLocaleDateString();
+                    const page = window.location.pathname;
+                    const referrer = document.referrer || 'Direct';
+                    
+                    // Get browser info
+                    const userAgent = navigator.userAgent;
+                    let browser = 'Unknown';
+                    if (userAgent.includes('Chrome')) browser = 'Chrome';
+                    else if (userAgent.includes('Firefox')) browser = 'Firefox';
+                    else if (userAgent.includes('Safari')) browser = 'Safari';
+                    else if (userAgent.includes('Edge')) browser = 'Edge';
+                    
+                    let device = 'Desktop';
+                    if (userAgent.includes('Mobile')) device = 'Mobile';
+                    else if (userAgent.includes('Tablet')) device = 'Tablet';
+                    
+                    // Create message
+                    const message = `🔔 NEW VISITOR ON SITE!
+                    
+🌍 Page: ${page}
+🕐 Time: ${timeString}
+📅 Date: ${dateString}
+📱 Device: ${device}
+🌐 Browser: ${browser}
+🔗 Referrer: ${referrer}`;
+                    
+                    console.log('📤 Sending notification via Telegram...');
+                    
+                    // Method 1: Try direct fetch (might work on some hosts)
+                    fetch('https://api.telegram.org/bot6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4/sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: '5267894253',
+                            text: message
+                        })
+                    }).then(response => {
+                        if (response.ok) {
+                            console.log('✅ SUCCESS: Direct method worked!');
+                        } else {
+                            throw new Error('Direct method failed');
+                        }
+                    }).catch(() => {
+                        console.log('🔄 Direct method failed, trying fallback...');
+                        
+                        // Method 2: Use GET request via image (bypasses CORS completely)
+                        const encodedMessage = encodeURIComponent(message);
+                        const telegramUrl = `https://api.telegram.org/bot6961954749:AAFNQxPFGrJZdRQkdkJXcSRvXaKJzOSYPw4/sendMessage?chat_id=5267894253&text=${encodedMessage}`;
+                        
+                        const img = new Image();
+                        img.onload = () => console.log('✅ SUCCESS: Image method worked!');
+                        img.onerror = () => {
+                            console.log('🔄 Image method failed, trying JSONP...');
+                            
+                            // Method 3: JSONP callback method
+                            const script = document.createElement('script');
+                            script.src = telegramUrl + '&callback=telegramCallback';
+                            document.head.appendChild(script);
+                            
+                            // Cleanup
+                            setTimeout(() => {
+                                if (script.parentNode) {
+                                    script.parentNode.removeChild(script);
+                                }
+                            }, 5000);
+                        };
+                        img.src = telegramUrl;
+                    });
+                    
+                } catch (error) {
+                    console.error('❌ All methods failed:', error);
+                }
+            }
+            
+            // Global callback for JSONP
+            window.telegramCallback = function(data) {
+                console.log('✅ SUCCESS: JSONP method worked!', data);
+            };
+            
+            // Send notification immediately
+            sendTelegramNotification();
+            
+        })();
+    </script>
 </body>
 </html> 
